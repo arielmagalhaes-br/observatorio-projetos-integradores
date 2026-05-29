@@ -1,0 +1,179 @@
+/* ================= ESTRUTURA GLOBAL ================= */
+/* Impede que a página tenha margens padrão e garante 100% da altura da janela */
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #f9fafb; /* Fundo cinza bem clarinho do Figma */
+    overflow-x: hidden;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= BARRA LATERAL (SIDEBAR) ================= */
+.sidebar {
+    width: 260px; /* Um pouco mais larga para acomodar a tipografia forte */
+    background-color: #ffffff;
+    border-right: 1px solid #d1d5db; /* Borda cinza um pouco mais marcada */
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+/* Estado Encolhido */
+.sidebar--collapsed {
+    width: 80px;
+}
+
+/* Cabeçalho com Logótipo e Botão */
+.sidebar__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #d1d5db;
+    min-height: 80px;
+}
+
+.sidebar__logo-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding-right: 16px;
+}
+
+.sidebar__logo {
+    max-width: 140px;
+    height: auto;
+    object-fit: contain;
+}
+
+.sidebar__toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #4b5563; 
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    transition: background-color 0.2s;
+    margin-top: 4px; /* Alinha visualmente com o topo do logo */
+}
+
+.sidebar__toggle:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+/* Navegação (Lista de Links) */
+.sidebar__nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+}
+
+/* Texto "MENU" */
+.sidebar__label {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #374151;
+    padding: 8px 24px;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+
+/* Estilo Padrão dos Links */
+.sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    text-decoration: none;
+    color: #111827; /* Quase preto */
+    font-family: var(--font-body, sans-serif);
+    font-size: 1.05rem; /* Fonte levemente maior */
+    font-weight: 700; /* Negrito como no print */
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.sidebar__link svg {
+    flex-shrink: 0;
+    color: #374151; /* Ícones cinza escuro */
+}
+
+/* Efeito ao passar o rato (Hover) */
+.sidebar__link:hover {
+    background-color: #f9fafb;
+}
+
+.sidebar__link:hover svg {
+    color: #111827;
+}
+
+/* ESTADO ATIVO (Página atual) - Cinza em vez de Azul */
+.sidebar__link.active {
+    background-color: #e5e7eb; /* Fundo cinza sólido igual ao Figma */
+    color: #000000; 
+    border-left-color: #9ca3af; /* Borda cinza na esquerda */
+}
+
+.sidebar__link.active svg {
+    color: #000000;
+}
+
+/* Rodapé (Botão Sair) */
+.sidebar__footer {
+    padding: 16px 0;
+    border-top: 1px solid #d1d5db;
+}
+
+/* ================= REGRAS PARA QUANDO A BARRA ESTÁ FECHADA ================= */
+.sidebar--collapsed .sidebar__text,
+.sidebar--collapsed .sidebar__label,
+.sidebar--collapsed .sidebar__logo-wrapper {
+    display: none; /* Esconde texto, label e logo */
+}
+
+.sidebar--collapsed .sidebar__header {
+    justify-content: center; /* Centraliza apenas o botão toggle */
+    padding: 24px 0;
+}
+
+.sidebar--collapsed .sidebar__link {
+    justify-content: center;
+    padding: 14px 0; 
+}
+
+/* ================= ÁREA DE CONTEÚDO PRINCIPAL ================= */
+.main-content {
+    flex: 1; /* Ocupa todo o resto da tela que sobrou da sidebar */
+    overflow-y: auto; /* Permite rolagem apenas no conteúdo, não na barra */
+    padding: var(--spacing-md);
+}
+
+/* No desktop, damos um respiro maior ao redor do conteúdo */
+@media (min-width: 1024px) {
+    .main-content {
+        padding: var(--spacing-lg);
+    }
+}
+/* ================= ANIMAÇÃO DO ÍCONE DO MENU ================= */
+
+/* Prepara o ícone para girar de forma suave (0.3 segundos) */
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Quando a barra ganha a classe de fechada, o ícone gira 180 graus */
+.sidebar--collapsed .toggle-icon {
+    transform: rotate(180deg);
+}

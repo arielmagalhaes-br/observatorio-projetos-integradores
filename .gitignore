@@ -4,4 +4,5 @@ db.sqlite3
 .env
 venv/
 .vscode/
-*.DS_Store
+tore
+bbb

@@ -1,0 +1,64 @@
+/* Alinhar quadrado e texto lado a lado */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm); /* Espaçamento entre o quadrado e o texto */
+    cursor: pointer;
+}
+
+.checkbox__label {
+    font-family: var(--font-body);
+    color: var(--color-text-main);
+    cursor: pointer;
+    user-select: none; /* Evita que o texto seja selecionado ao clicar */
+}
+
+/* O Quadrado Customizado */
+.checkbox__input {
+    /* Desliga o visual feio do padrão do Chorme */
+    appearance: none;
+    -webkit-appearance: none;
+    
+    /* Desenha novo quadrado */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin: 0; 
+
+    /* Prepara o flexbox para centralizar o "V" branco de check depois */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+/* Desenhando o "V" de check usando CSS puro */
+.checkbox__input::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg); /* Gira para formar o "V" */
+    display: none;
+}
+
+/* Critério de cor de destaque */
+.checkbox__input:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Exibe o "V" de check quando marcado */
+.checkbox__input:checked::after {
+    display: block;
+}
+
+/* FOCO VISÍVEL PARA ACESSIBILIDADE (Critério W3C) */
+.checkbox__input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

@@ -1,0 +1,340 @@
+/* ====================================================
+   PÁGINA: MEUS PROJETOS
+   ==================================================== */
+
+/* ===== CABEÇALHO ALINHADO COM OS CARDS ===== */
+.header-projetos {
+    max-width: 850px; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-bottom: 32px;
+    text-align: left; 
+}
+
+.header-projetos__title {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+}
+
+.header-projetos__subtitle {
+    font-family: var(--font-body, sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin: 0;
+}
+
+.dashboard__decorator {
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #f59e0b;
+    border-radius: 2px;
+    margin-top: 4px;
+}
+
+/* ================= O GRID DOS CARDS ================= */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 32px; 
+    margin-bottom: 48px;
+    max-width: 850px; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+@media (min-width: 1024px) {
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ================= ESTILO DO CARD ================= */
+.meu-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+    transition: transform 0.2s;
+}
+
+.meu-card:hover {
+    transform: translateY(-2px);
+}
+
+.card-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; 
+}
+
+.titulo {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4b5563;
+}
+
+.numero {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 2.2rem; 
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+/* ================= ÍCONES DOS CARDS ================= */
+.icone {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icone-azul { background-color: #dbeafe; color: #2563eb; }
+.icone-verde { background-color: #d1fae5; color: #10b981; }
+.icone-laranja { background-color: #ffedd5; color: #f97316; }
+.icone-amarelo { background-color: #fef3c7; color: #d97706; }
+
+/* ================= CAIXA MASTER (TABELA E BUSCA) ================= */
+.projetos-container {
+    max-width: 850px; 
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden; 
+}
+
+/* ================= BARRA DE FERRAMENTAS (TOOLBAR) ================= */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.toolbar__esquerda {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 1. A caixa que abraça a lupa e o input (recebe a borda) */
+.input-busca {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 300px;
+}
+
+/* 2. O input de texto (sem borda nativa) */
+.input-busca input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.9rem;
+    color: #111827;
+}
+
+/* Botão de Filtros */
+.btn-filtro {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-filtro:hover {
+    background-color: #f3f4f6;
+}
+
+/* Texto de Paginação na direita */
+.toolbar__direita {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+.toolbar__direita strong {
+    color: #111827;
+}
+
+
+/* ================= TABELA DE PROJETOS ================= */
+.tabela-projetos {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+
+.tabela-projetos th,
+.tabela-projetos td {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    border-right: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+.tabela-projetos th:last-child,
+.tabela-projetos td:last-child {
+    border-right: none;
+}
+
+.tabela-projetos th {
+    background-color: #e5e7eb;
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    border-right: 2px solid #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tabela-projetos td:first-child {
+    text-align: left;
+}
+
+.tabela-projetos td:not(first-child) {
+    text-align: center;
+}
+
+.btn-acao {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, stroke 0.2s;
+}
+
+.btn-acao:hover {
+    stroke: #2563eb;
+    transform: scale(1.1);
+}
+
+/* Lista Vazia Ação */
+.linha-vazia-acao td {
+    padding: 0; 
+    background-color: #fafafa;
+    transition: background-color 0.2s;
+}
+
+.link-novo-projeto {
+    display: block; 
+    width: 100%;
+    padding: 32px 16px; /* O espaço interno (padding) veio para cá! */
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-sizing: border-box; /* Garante que o padding não quebre a largura */
+}
+
+.linha-vazia-acao:hover td {
+    background-color: #eff6ff; /* A célula inteira pinta de azul claro */
+}
+
+.linha-vazia-acao:hover .link-novo-projeto {
+    color: #2563eb;
+}
+
+.linha-vazia-branca td {
+    padding: 26px 16px; 
+    background-color: #ffffff;
+}
+
+/* Celulas da tabela */
+
+.celula-titulo {
+    text-align: left;
+    max-width: 250px;
+}
+
+.celula-titulo strong {
+    color: #111827;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.celula-titulo p {
+    color: #3b82f6;
+    font-size: 0.75rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.celula-semestre {
+    font-weight: 600;
+    color: #111827;
+    font-size: 0.9rem;
+}
+
+/* Container dos botões de ação na última coluna */
+.acoes-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Badge - Pirulas e Status */
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* Cores das Tecnologias */
+.badge-azul { background-color: #93c5fd; color: #1e3a8a; }
+.badge-amarelo { background-color: #fde047; color: #854d0e; }
+.badge-roxo { background-color: #c4b5fd; color: #4c1d95; }
+
+/* Status */
+.badge-status {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.status-aprovado { background-color: #bbf7d0; color: #166534; }
+.status-ajustes { background-color: #fed7aa; color: #9a3412; }

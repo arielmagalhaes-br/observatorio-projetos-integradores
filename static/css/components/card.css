@@ -1,0 +1,96 @@
+/* Estrutura base do Card */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito de elevação ao passar o mouse */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Variações de status */
+/* Adicioando uma borda superior grossa para diferenciar o status do projeto */
+.card--prototipo {
+    border-top: 4px solid #EC6E18; /* Laranja para construção */
+}
+
+.card--pronto {
+    border-top: 4px solid #079d6b; /* Verde para pronto */
+}
+
+/* Elementos Internos */
+.card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.card__title {
+    font-size: -0.75rem; /* 12px */
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 999px; /* Bordas totalmente arredondadas */
+    white-space: nowrap; /* Evita que o texto quebre linha */
+}
+
+.card__badge {
+    font-size: 0.75rem; /* 12px */
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 999px; /* Bordas totalmente arredondadas */
+    white-space: nowrap; /* Evita que o texto quebre linha */
+}
+
+.card__badge--prototipo {
+    background-color: #fef3c7; /* Laranja para construção */
+    color: #b45309;
+}
+
+.card__badge--pronto {
+    background-color: #d1fae5; /* Verde para pronto */
+    color: #047857;
+}
+
+.card__description {
+    font-family: var(--font-body);
+    font-size: 0.875rem; /* 14px */
+    color: #4b5563; /* Cinza mais suave para o texto de descrição */
+    line-height: 1.5;
+    flex-grow: 1; /* Empurra os elementos abaixo sempre para o final do card */
+}
+
+/* Lista de Tecnologias e ODS */
+.card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--spacing-sm);
+}
+
+.tag {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Rodapé com Ações */
+.card__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: var(--spacing-md);
+    border-top: 1px solid #e5e7eb;
+    padding-top: var(--spacing-md);
+}
