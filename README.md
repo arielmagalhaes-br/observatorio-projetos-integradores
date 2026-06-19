@@ -75,12 +75,3 @@ Conecta PI is a web platform that organizes, showcases, and connects Capstone Pr
 4. Approve the project through curation.
 5. View it in the public showcase.
 6. Match it with partner demands.
-
-## Short Speaking Script
-
-- **Opening:** Conecta PI gives more visibility and real impact to academic projects.
-- **Problem:** Many good projects are finished, delivered, and then forgotten.
-- **Solution:** The platform connects student projects with real needs from companies and NGOs.
-- **Users:** Students publish, teachers curate, partners discover, and administrators monitor.
-- **Value:** Conecta PI transforms academic production into practical innovation.
-- **Closing:** The goal is to make student projects visible, useful, and connected to the real world.
