@@ -1,0 +1,288 @@
+body, .vitrine-container, .vitrine-container * {
+    font-family: var(--font-body, sans-serif) !important;
+}
+
+/* ================= CONTAINER PRINCIPAL ================= */
+.vitrine-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 40px 100px 40px; 
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    position: relative;
+}
+
+/* ================= CABEÇALHO ================= */
+.vitrine-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.cabecalho-textos p {
+    color: #6b7280;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.cabecalho-textos h1 {
+    color: #1e3a8a;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+}
+
+.lista-equipe strong {
+    color: #3b82f6;
+    text-shadow: 0px 1px 2px rgba(59, 130, 246, 0.2);
+}
+
+.status-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.card-secao {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px 32px; 
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    transition: box-shadow 0.3s ease;
+}
+
+.card-secao:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+.status-label {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* ================= CARTÕES DE LINHA ÚNICA ================= */
+.card-linha {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 32px;
+}
+
+.secao-titulo {
+    font-size: 1.1rem;
+    color: #111827;
+    margin: 0 0 16px 0;
+    font-weight: 800;
+}
+
+.secao-titulo-inline {
+    font-size: 1.1rem;
+    color: #111827;
+    margin: 0;
+    font-weight: 800;
+    min-width: 180px; 
+}
+
+.texto-conteudo {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ================= GALERIA NEGRA (PADRÃO FIGMA) ================= */
+.galeria-wrapper {
+    background-color: #0f172a; /* Azul muito escuro, idêntico ao Figma */
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.galeria-imagens {
+    display: flex;
+    gap: 16px; /* Espaço entre as 4 telinhas */
+    flex: 1;
+    overflow: hidden;
+    justify-content: center;
+}
+
+/* Regra unificada para as fotos reais e para os espaços vazios */
+.galeria-imagens img, .img-placeholder {
+    flex: 1;
+    min-width: 0; /* Evita que a imagem quebre o flexbox */
+    height: 280px; 
+    border-radius: 8px;
+}
+
+.galeria-imagens img {
+    object-fit: cover;
+}
+
+/* O "Empty State" escuro e elegante */
+.img-placeholder {
+    background-color: #1e293b; 
+    border: 2px dashed #334155; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #94a3b8 !important;
+}
+
+.img-placeholder svg {
+    margin-bottom: 8px;
+    opacity: 0.5;
+}
+
+/* Setas simples e brancas, sem o fundo bolinha branco que eu tinha posto */
+.btn-seta {
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-seta svg {
+    stroke: #ffffff !important; 
+    width: 28px;
+    height: 28px;
+}
+
+.btn-seta:hover {
+    transform: scale(1.1);
+}
+
+/* ================= TAGS E BADGES ================= */
+.tags-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-azul { background-color: #93c5fd; color: #1e3a8a; }
+.badge-amarelo { background-color: #fde047; color: #854d0e; }
+.badge-roxo { background-color: #c4b5fd; color: #4c1d95; }
+.badge-azul-escuro { background-color: #94a3b8; color: #1e293b; }
+
+.badge-status {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.status-ajustes { background-color: var(--color-primary-soft); color: var(--color-primary); }
+
+.btn-link {
+    padding: 8px 24px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+}
+
+.btn-link:hover { opacity: 0.8; }
+.bg-roxo { background-color: #a855f7; }
+.bg-verde { background-color: #4ade80; color: #064e3b; }
+.bg-preto { background-color: #1f2937; }
+.bg-vermelho { background-color: #ef4444; }
+
+/* ================= LISTA DA EQUIPE ================= */
+.lista-equipe {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lista-equipe li {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* ================= BOTÃO FIXO (EDITAR PROJETO) ================= */
+.btn-editar-fixo {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: var(--color-primary); /* Laranja do Figma */
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 8px; /* Cantos arredondados padrão */
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 15px -3px rgba(236, 110, 24, 0.3);
+    transition: transform 0.2s, background-color 0.2s;
+    z-index: 100;
+}
+
+.btn-editar-fixo:hover {
+    background-color: var(--color-primary-hover); /* Laranja mais escuro no hover */
+    transform: translateY(-2px);
+}
+
+/* ================== BADGES DE TECNOLOGIAS PADRONIZADOS ================== */
+.badge-tech {
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    background-color: #e5e7eb;
+    color: #374151;
+    text-transform: uppercase;
+}
+
+/* Paleta de Cores Dinâmicas */
+.badge-python { background-color: #bfdbfe; color: #1e40af; }
+.badge-mysql, .badge-sql { background-color: #fed7aa; color: #9a3412; }
+.badge-java { background-color: #fecaca; color: #991b1b; }
+.badge-typescript, .badge-javascript { background-color: #fef08a; color: #854d0e; }
+.badge-html, .badge-css { background-color: #d9f99d; color: #3f6212; }
+.badge-django, .badge-spring { background-color: #bbf7d0; color: #166534; }
+.badge-php { background-color: #e9d5ff; color: #6b21a8; }
+.badge-cpp { background-color: var(--color-primary-soft); color: var(--color-primary); }
+.badge-mongodb { background-color: #f3f4f6; color: #4b5563; }
+.badge-firebase { background-color: #ffe4e6; color: #be123c; }
+
+/* Fallback de badge genérico */
+.badge-tech:not([class*="badge-"]) {
+    background-color: #e5e7eb;
+    color: #374151;
+}

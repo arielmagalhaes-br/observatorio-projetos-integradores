@@ -1,0 +1,49 @@
+{% for projeto in projetos %}
+    <a href="{% url 'detalhe_projeto' projeto.id %}" class="projeto-card">
+        <div class="card-media">
+            {% if projeto.capa_url %}
+                <img src="{{ projeto.capa_url }}" alt="Logo {{ projeto.titulo }}" class="card-img" loading="lazy">
+            {% else %}
+                <div class="card-img-placeholder">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    <span class="placeholder-text">{{ projeto.titulo|truncatechars:20 }}</span>
+                </div>
+            {% endif %}
+            
+            <div class="card-ods-tags">
+                {% for ods in projeto.ods.all|slice:":2" %}
+                    <span class="card-ods-badge">ODS {{ ods.numero }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card-content">
+            <span class="card-semester">{{ projeto.semestre }}º Semestre</span>
+            <h3 class="card-title">{{ projeto.titulo }}</h3>
+            <p class="card-description">{{ projeto.resumo|truncatechars:120 }}</p>
+            
+            <div class="card-techs">
+                {% for tech in projeto.tecnologias.all|slice:":3" %}
+                    <span class="badge-tech badge-{{ tech.nome|slugify }}">{{ tech.nome|upper }}</span>
+                {% empty %}
+                    <span class="tech-empty">Nenhuma tecnologia</span>
+                {% endfor %}
+            </div>
+        </div>
+    </a>
+{% empty %}
+    <div class="vitrine-empty-state">
+        <div class="empty-icon-wrapper">
+            <svg class="empty-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+        </div>
+        <h2 class="empty-title">Nenhum projeto encontrado</h2>
+        <p class="empty-subtitle">Não encontramos projetos correspondentes aos termos ou filtros selecionados.</p>
+    </div>
+{% endfor %}

@@ -1,0 +1,39 @@
+{% for projeto in projetos %}
+<tr>
+    <td>
+        <strong>{{ projeto.titulo|upper }}</strong>
+        <p>{{ projeto.resumo|truncatechars:115 }}</p>
+    </td>
+
+    <td>
+        {% for autor in projeto.autores.all %}
+            {{ autor.usuario.get_full_name|default:autor.usuario.username }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            <span class="curadoria-empty">Nenhum</span>
+        {% endfor %}
+    </td>
+
+    <td>
+        <strong>{{ projeto.autores.first.curso|default:"Não informado" }}</strong>
+    </td>
+
+    <td class="curadoria-center">
+        <strong>{{ projeto.data_criacao|date:"d/m/Y H:i" }}</strong>
+    </td>
+
+    <td class="curadoria-center">
+        <a href="{% url 'analisar_projeto' projeto.id %}" class="curadoria-eye" title="Analisar projeto">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+        </a>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="5" class="curadoria-empty-row">
+        Nenhum projeto encontrado para curadoria.
+    </td>
+</tr>
+{% endfor %}

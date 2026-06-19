@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard | Conecta PI{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <header class="dashboard-header">
+        <div class="dashboard-header__text">
+            <h1 class="dashboard-header__title">Dashboard</h1>
+            <p class="dashboard-header__subtitle">Acompanhe suas métricas de desempenho</p>
+        </div>
+        <div class="dashboard-header__actions">
+            <div class="turma-dropdown">
+                <button class="btn-turma" id="btn-turma" type="button">
+                    <svg class="btn-turma__icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                    <span>{% if turma_selecionada %}{{ turma_selecionada.nome }}{% else %}Turma{% endif %}</span>
+                </button>
+                <div class="turma-dropdown__menu" id="dropdown-turma-content">
+                    <a href="?">Todas as Turmas</a>
+                    {% for turma in turmas %}
+                        <a href="?turma={{ turma.id }}">{{ turma.nome }} ({{ turma.semestre }})</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Metrics Grid -->
+    <div class="metrics-grid">
+        <!-- Card 1: Demandas Abertas -->
+        <article class="metric-card">
+            <div class="metric-card__left">
+                <strong class="metric-card__number">4</strong>
+                <div class="metric-card__text">
+                    <h2 class="metric-card__title">Demandas Abertas</h2>
+                    <p class="metric-card__subtitle">+2 neste semestre letivo</p>
+                </div>
+            </div>
+            <div class="metric-card__right">
+                <span class="metric-card__icon metric-card__icon--yellow" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </span>
+            </div>
+        </article>
+
+        <!-- Card 2: Projetos Publicados -->
+        <article class="metric-card">
+            <div class="metric-card__left">
+                <strong class="metric-card__number">6</strong>
+                <div class="metric-card__text">
+                    <h2 class="metric-card__title">Projetos Publicados</h2>
+                    <p class="metric-card__subtitle">+2 neste semestre letivo</p>
+                </div>
+            </div>
+            <div class="metric-card__right">
+                <span class="metric-card__icon metric-card__icon--green" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </span>
+            </div>
+        </article>
+
+        <!-- Card 3: Projetos Pendentes -->
+        <article class="metric-card">
+            <div class="metric-card__left">
+                <strong class="metric-card__number">2</strong>
+                <div class="metric-card__text">
+                    <h2 class="metric-card__title">Projetos Pendentes</h2>
+                    <p class="metric-card__subtitle">Aguardando ajustes dos alunos</p>
+                </div>
+            </div>
+            <div class="metric-card__right">
+                <span class="metric-card__icon metric-card__icon--yellow" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </span>
+            </div>
+        </article>
+
+        <!-- Card 4: Projetos em Análise -->
+        <article class="metric-card">
+            <div class="metric-card__left">
+                <strong class="metric-card__number">2</strong>
+                <div class="metric-card__text">
+                    <h2 class="metric-card__title">Projetos em Análise</h2>
+                    <p class="metric-card__subtitle">Aguardando sua revisão</p>
+                </div>
+            </div>
+            <div class="metric-card__right">
+                <span class="metric-card__icon metric-card__icon--yellow" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </span>
+            </div>
+        </article>
+    </div>
+
+    <!-- Chart Card -->
+    <section class="chart-card" aria-labelledby="ods-chart-title">
+        <h2 class="chart-card__title" id="ods-chart-title">Projetos por ODS</h2>
+        <div class="chart-card__canvas-container">
+            <canvas id="odsChart"></canvas>
+        </div>
+    </section>
+</div>
+
+<!-- Scripts Block -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dropdown Turma menu logic
+        const btnTurma = document.getElementById('btn-turma');
+        const dropdownContent = document.getElementById('dropdown-turma-content');
+
+        if (btnTurma && dropdownContent) {
+            btnTurma.addEventListener('click', function(event) {
+                event.stopPropagation();
+                dropdownContent.classList.toggle('turma-dropdown__menu--show');
+            });
+
+            document.addEventListener('click', function() {
+                dropdownContent.classList.remove('turma-dropdown__menu--show');
+            });
+        }
+
+        // Chart.js initialization
+        const ctx = document.getElementById('odsChart').getContext('2d');
+        
+        // Define options for horizontal bar chart
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'ODS 16 - Paz, Justiça e Inst. Eficazes',
+                    'ODS 14 - Vida na Água',
+                    'ODS 4 - Educação de Qualidade',
+                    'ODS 8 - Trabalho Decente e Cresc. Econômico',
+                    'ODS 9 - Indústria, Inovação e Infraestrutura'
+                ],
+                datasets: [{
+                    label: 'Projetos',
+                    data: [3, 1, 4, 3, 3],
+                    backgroundColor: [
+                        '#002B49',
+                        '#002B49',
+                        '#EC6E18', // ODS 4 - orange highlight
+                        '#002B49',
+                        '#002B49'
+                    ],
+                    borderWidth: 0,
+                    borderRadius: 6,
+                    barThickness: 20
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#002B49',
+                        titleFont: {
+                            family: 'Plus Jakarta Sans',
+                            size: 13,
+                            weight: '600'
+                        },
+                        bodyFont: {
+                            family: 'Plus Jakarta Sans',
+                            size: 12
+                        },
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            color: '#6B7280',
+                            font: {
+                                family: 'Plus Jakarta Sans',
+                                size: 11,
+                                weight: '500'
+                            }
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#111827',
+                            font: {
+                                family: 'Plus Jakarta Sans',
+                                size: 12,
+                                weight: '600'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

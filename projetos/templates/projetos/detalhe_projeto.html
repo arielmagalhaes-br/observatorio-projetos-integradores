@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalhe do Projeto | Conecta PI{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/pages/detalhe_projeto.css' %}">
+
+<div class="vitrine-container">
+    
+    <header class="vitrine-cabecalho">
+        <div class="cabecalho-textos">
+            <h1>{{ projeto.titulo|default:"Projeto Sem Título" }}</h1>
+            <p>Projeto desenvolvido por turma de ADS no Semestre {{ projeto.semestre|default:"(não informado)" }}</p>
+        </div>
+        <div class="status-card">
+            <span class="status-label">STATUS</span>
+            
+            {% if projeto.status == 'APROVADO' %}
+                <span class="badge-status" style="background-color: #A7F3D0; color: #065F46; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: bold; font-size: 0.8rem;">APROVADO</span>
+            {% elif projeto.status %}
+                <span class="badge-status status-ajustes" style="background-color: #FDE68A; color: #92400E; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: bold; font-size: 0.8rem;">{{ projeto.get_status_display|upper }}</span>
+            {% else %}
+                <span class="badge-status" style="background-color: #E5E7EB; color: #6B7280; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: bold; font-size: 0.8rem;">NÃO DEFINIDO</span>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if projeto.feedback_professor %}
+    <section class="card-secao feedback-professor-card" style="border-left: 6px solid #f97316; background-color: #fffaf0; margin-bottom: 8px;">
+        <h2 class="secao-titulo" style="color: #ea580c; display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Orientação do Professor (Feedback)
+        </h2>
+        <p class="texto-conteudo" style="color: #c2410c; font-weight: 600; font-size: 1rem; line-height: 1.6;">
+            {{ projeto.feedback_professor }}
+        </p>
+    </section>
+    {% endif %}
+
+    <section class="card-secao">
+        <h2 class="secao-titulo">Galeria</h2>
+        <div class="galeria-wrapper">
+            <button class="btn-seta">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            
+            <div class="galeria-imagens">
+                {% if imagens %}
+                    {% for img in imagens %}
+                        <img src="{{ img.imagem.url }}" alt="Imagem do Projeto">
+                    {% endfor %}
+                {% else %}
+                    <div class="img-placeholder">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <span>Sem imagens</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <button class="btn-seta">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+    </section>
+
+    <section class="card-secao card-linha">
+        <h2 class="secao-titulo-inline">Tecnologias:</h2>
+        <div class="tags-container">
+            {% for tech in projeto.tecnologias.all %}
+                <span class="badge-tech badge-{{ tech.nome|slugify }}">{{ tech.nome|upper }}</span>
+            {% empty %}
+                <span style="color: #6b7280; font-size: 0.9rem;">Nenhuma tecnologia informada.</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="card-secao card-linha">
+        <h2 class="secao-titulo-inline">ODS:</h2>
+        <div class="tags-container">
+            {% for ods in projeto.ods.all %}
+                <span class="badge badge-azul-escuro">ODS {{ ods.numero }}</span>
+            {% empty %}
+                <span style="color: #6b7280; font-size: 0.9rem;">Nenhum ODS vinculado.</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="card-secao card-linha">
+        <h2 class="secao-titulo-inline">Links e Documentação:</h2>
+        <div class="tags-container">
+            {% if projeto.Link_prototipo %}
+                <a href="{{ projeto.Link_prototipo }}" target="_blank" class="btn-link bg-roxo">PROTÓTIPO</a>
+            {% endif %}
+            
+            {% if projeto.link_demo %}
+                <a href="{{ projeto.link_demo }}" target="_blank" class="btn-link bg-verde">DEMO</a>
+            {% endif %}
+            
+            {% if projeto.Link_repositorio %}
+                <a href="{{ projeto.Link_repositorio }}" target="_blank" class="btn-link bg-preto">REPOSITÓRIO</a>
+            {% endif %}
+
+            {% if projeto.documentacao_pdf %}
+                <a href="{{ projeto.documentacao_pdf.url }}" target="_blank" class="btn-link bg-vermelho">DOCUMENTAÇÃO</a>
+            {% endif %}
+
+            {% if not projeto.Link_prototipo and not projeto.link_demo and not projeto.Link_repositorio and not projeto.documentacao_pdf %}
+                <span style="color: #6b7280; font-size: 0.9rem; font-style: italic;">Nenhum link ou documentação informada.</span>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="card-secao">
+        <h2 class="secao-titulo">Equipe:</h2>
+        <ul class="lista-equipe">
+            {% for autor in projeto.autores.all %}
+                <li><strong>{{ autor.usuario.get_full_name|default:autor.usuario.username }}</strong> - {{ autor.usuario.email }}</li>
+            {% empty %}
+                <li>Nenhum autor formalmente vinculado no sistema.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="card-secao">
+        <h2 class="secao-titulo">Resumo</h2>
+        <p class="texto-conteudo">{{ projeto.resumo|default:"Informação não disponibilizada." }}</p>
+    </section>
+
+    <section class="card-secao">
+        <h2 class="secao-titulo">Inspiração</h2>
+        <p class="texto-conteudo">{{ projeto.inspiracao|default:"Informação não disponibilizada." }}</p>
+    </section>
+
+    <section class="card-secao">
+        <h2 class="secao-titulo">O que ele faz?</h2>
+        <p class="texto-conteudo">{{ projeto.descricao|default:"Informação não disponibilizada." }}</p>
+    </section>
+
+    {% if pode_editar %}
+    <a href="{% url 'editar_projeto' projeto.id %}" class="btn-editar-fixo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        Editar Projeto
+    </a>
+    {% endif %}
+
+</div>
+{% endblock %}

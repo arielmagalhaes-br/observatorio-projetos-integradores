@@ -2,7 +2,6 @@
    PÁGINA: MEUS PROJETOS
    ==================================================== */
 
-/* ===== CABEÇALHO ALINHADO COM OS CARDS ===== */
 .header-projetos {
     max-width: 850px; 
     margin-left: auto; 
@@ -14,7 +13,7 @@
 .header-projetos__title {
     font-family: var(--font-heading, sans-serif);
     font-size: 2.2rem;
-    font-weight: 700;
+    font-weight: 800;
     color: #111827;
     margin: 0 0 8px 0;
 }
@@ -31,29 +30,29 @@
     display: block;
     width: 60px;
     height: 4px;
-    background-color: #f59e0b;
+    background-color: var(--color-primary); 
     border-radius: 2px;
     margin-top: 4px;
 }
 
-/* ================= O GRID DOS CARDS ================= */
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 32px; 
+    gap: 24px; 
     margin-bottom: 48px;
     max-width: 850px; 
     margin-left: auto; 
     margin-right: auto; 
 }
 
-@media (min-width: 1024px) {
-    .dashboard-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+@media (min-width: 768px) {
+    .dashboard-cards { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ================= ESTILO DO CARD ================= */
+@media (min-width: 1024px) {
+    .dashboard-cards { grid-template-columns: repeat(4, 1fr); }
+}
+
 .meu-card {
     background-color: #ffffff;
     border: 1px solid #e5e7eb;
@@ -63,9 +62,7 @@
     transition: transform 0.2s;
 }
 
-.meu-card:hover {
-    transform: translateY(-2px);
-}
+.meu-card:hover { transform: translateY(-2px); }
 
 .card-topo {
     display: flex;
@@ -75,21 +72,22 @@
 }
 
 .titulo {
-    font-family: var(--font-primary, sans-serif);
+    font-family: var(--font-body, sans-serif);
     font-size: 0.85rem;
     font-weight: 700;
-    color: #4b5563;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .numero {
     font-family: var(--font-heading, sans-serif);
     font-size: 2.2rem; 
-    font-weight: 700;
+    font-weight: 800;
     color: #111827;
     margin: 0;
 }
 
-/* ================= ÍCONES DOS CARDS ================= */
 .icone {
     width: 36px;
     height: 36px;
@@ -99,12 +97,15 @@
     align-items: center;
 }
 
-.icone-azul { background-color: #dbeafe; color: #2563eb; }
-.icone-verde { background-color: #d1fae5; color: #10b981; }
-.icone-laranja { background-color: #ffedd5; color: #f97316; }
-.icone-amarelo { background-color: #fef3c7; color: #d97706; }
+.icone-azul { background-color: #dbeafe; color: #1e3a8a; }
+.icone-verde { background-color: #d1fae5; color: #065f46; }
+.icone-laranja { background-color: var(--color-primary-soft); color: var(--color-primary); }
+.icone-amarelo { background-color: #fef3c7; color: #92400e; }
+.icone-roxo { background-color: #f3e8ff; color: #6b21a8; }
 
-/* ================= CAIXA MASTER (TABELA E BUSCA) ================= */
+.meu-card { cursor: pointer; transition: box-shadow .2s, border-color .2s; }
+.meu-card.card-ativo { border-color: var(--color-primary); background-color: var(--color-primary-soft); }
+
 .projetos-container {
     max-width: 850px; 
     margin-left: auto;
@@ -116,33 +117,39 @@
     overflow: hidden; 
 }
 
-/* ================= BARRA DE FERRAMENTAS (TOOLBAR) ================= */
+/* ================== BARRA DE FERRAMENTAS E BUSCA ================== */
 .toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 24px;
     border-bottom: 1px solid #e5e7eb;
+    gap: 16px;
+    flex-wrap: wrap; /* Permite que os elementos respirem sem esmagar o texto */
 }
 
 .toolbar__esquerda {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
 }
 
-/* 1. A caixa que abraça a lupa e o input (recebe a borda) */
 .input-busca {
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-primary);
     border-radius: 8px;
-    padding: 8px 16px;
-    width: 300px;
+    padding: 0 16px; 
+    /* A MÁGICA: Em vez de largura fixa, ele cresce para ocupar o espaço livre! */
+    flex: 1; 
+    min-width: 200px; /* Mas não encolhe mais do que isto */
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
-/* 2. O input de texto (sem borda nativa) */
 .input-busca input {
     border: none;
     outline: none;
@@ -150,81 +157,201 @@
     background: transparent;
     font-family: var(--font-body, sans-serif);
     font-size: 0.9rem;
-    color: #111827;
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
-/* Botão de Filtros */
-.btn-filtro {
+.input-busca input::placeholder {
+    color: var(--color-primary);
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+/* ================== BOTÕES DE FILTRO (O Novo Design) ================== */
+.filtros-figma-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap; 
+}
+
+.btn-filtro-figma {
+    background-color: var(--color-primary); 
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    outline: none; 
+    border-radius: 8px;
+    padding: 0 14px; /* Padding equilibrado nas laterais */
+    height: 40px;
+    cursor: pointer;
+    font-family: var(--font-body, sans-serif); /* Garante a fonte limpa e sem serifa */
+    font-size: 0.9rem;
+    transition: background-color 0.2s, transform 0.1s;
+    
+    /* A Mágica do Alinhamento Perfeito */
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 10px; /* Espaço exato entre ícone, texto e seta */
+    white-space: nowrap; /* Impede que nomes longos quebrem em duas linhas */
+}
+
+.btn-filtro-figma:hover, .btn-filtro-figma:focus {
+    background-color: var(--color-primary-hover); 
+}
+
+/* ================== DROPDOWNS CUSTOMIZADOS (100% Figma) ================== */
+.dropdown-custom {
+    position: relative;
+    display: inline-block;
+}
+
+/* O botão já usa o .btn-filtro-figma original, só ajustamos a seta da direita */
+.toggle-dropdown {
+    /* Mantemos o funil nativo do HTML e colocamos só a seta branca no CSS */
+    background-image: none !important;
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    padding: 0 32px 0 16px; /* Espaço para a seta direita e padding normal na esquerda */
+}
+
+.menu-dropdown {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: calc(100% + 4px); /* Fica logo abaixo do botão */
+    left: 0;
+    min-width: 100%;
     background-color: #ffffff;
-    border: 1px solid #d1d5db;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
-    padding: 8px 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    overflow: hidden; /* Mantém os cantos arredondados */
+}
+
+.dropdown-custom.aberto .menu-dropdown {
+    display: block; /* Mostra quando tem a classe aberto */
+}
+
+.texto-dropdown {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.item-dropdown {
+    padding: 10px 16px;
     font-family: var(--font-body, sans-serif);
     font-size: 0.9rem;
-    font-weight: 600;
     color: #4b5563;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
+    white-space: nowrap;
 }
 
-.btn-filtro:hover {
-    background-color: #f3f4f6;
+.item-dropdown:hover {
+    background-color: var(--color-primary-soft); /* Fundo laranja bem claro no hover */
+    color: var(--color-primary); /* Letra laranja forte */
 }
 
-/* Texto de Paginação na direita */
+.item-dropdown.selecionado {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ================== TEXTO DA DIREITA ================== */
 .toolbar__direita {
     font-family: var(--font-body, sans-serif);
     font-size: 0.9rem;
     color: #6b7280;
+    white-space: nowrap; /* Impede completamente aquela quebra de linha feia */
 }
+
+.toolbar__esquerda {
+    display: flex;
+    flex-direction: row; /* Força tudo a ficar na horizontal */
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
 .toolbar__direita strong {
     color: #111827;
 }
 
-
-/* ================= TABELA DE PROJETOS ================= */
+/* ================== TABELA ================== */
 .tabela-projetos {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body, sans-serif);
 }
 
-
-.tabela-projetos th,
-.tabela-projetos td {
+.tabela-projetos th, .tabela-projetos td {
     padding: 16px;
     border-bottom: 1px solid #e5e7eb;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid #e5e7eb; 
     vertical-align: middle;
 }
 
-.tabela-projetos th:last-child,
-.tabela-projetos td:last-child {
+.tabela-projetos th:last-child, .tabela-projetos td:last-child {
     border-right: none;
 }
 
+/* CABEÇALHO AZUL FINO */
 .tabela-projetos th {
-    background-color: #e5e7eb;
-    color: #6b7280;
-    font-size: 0.75rem;
+    background-color: var(--color-secondary); 
+    color: #ffffff;
+    font-size: 0.80rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     text-align: center;
-    border-right: 2px solid #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1); 
 }
 
-.tabela-projetos td:first-child {
+.tabela-projetos td:first-child { text-align: left; }
+.tabela-projetos td:not(:first-child) { text-align: center; }
+
+.linha-principal {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.linha-principal:hover { background-color: #f8fafc; }
+
+.celula-titulo {
     text-align: left;
+    max-width: 250px;
+}
+.celula-titulo strong {
+    color: #1e3a8a;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 800;
+}
+.celula-titulo p {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.4;
 }
 
-.tabela-projetos td:not(first-child) {
-    text-align: center;
+.celula-semestre {
+    font-weight: 700;
+    color: #111827;
+    font-size: 0.9rem;
+}
+
+.acoes-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-acao {
@@ -236,105 +363,217 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s, stroke 0.2s;
+    color: #6b7280;
+    transition: transform 0.2s, color 0.2s;
 }
 
 .btn-acao:hover {
-    stroke: #2563eb;
+    color: var(--color-primary);
     transform: scale(1.1);
 }
 
-/* Lista Vazia Ação */
-.linha-vazia-acao td {
-    padding: 0; 
-    background-color: #fafafa;
-    transition: background-color 0.2s;
+.btn-expandir {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.linha-principal.aberta .btn-expandir {
+    transform: rotate(180deg);
+    color: var(--color-primary);
 }
 
-.link-novo-projeto {
-    display: block; 
-    width: 100%;
-    padding: 32px 16px; /* O espaço interno (padding) veio para cá! */
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    box-sizing: border-box; /* Garante que o padding não quebre a largura */
-}
-
-.linha-vazia-acao:hover td {
-    background-color: #eff6ff; /* A célula inteira pinta de azul claro */
-}
-
-.linha-vazia-acao:hover .link-novo-projeto {
-    color: #2563eb;
-}
-
-.linha-vazia-branca td {
-    padding: 26px 16px; 
-    background-color: #ffffff;
-}
-
-/* Celulas da tabela */
-
-.celula-titulo {
-    text-align: left;
-    max-width: 250px;
-}
-
-.celula-titulo strong {
-    color: #111827;
-    font-size: 0.9rem;
-    display: block;
-    margin-bottom: 4px;
-}
-
-.celula-titulo p {
-    color: #3b82f6;
-    font-size: 0.75rem;
-    margin: 0;
-    line-height: 1.4;
-}
-
-.celula-semestre {
-    font-weight: 600;
-    color: #111827;
-    font-size: 0.9rem;
-}
-
-/* Container dos botões de ação na última coluna */
-.acoes-container {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Badge - Pirulas e Status */
-
+/* ================== BADGES E STATUS ================== */
 .badge {
     padding: 4px 12px;
     border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    font-weight: 800;
     display: inline-block;
     margin: 2px;
+    text-transform: uppercase;
 }
 
-/* Cores das Tecnologias */
 .badge-azul { background-color: #93c5fd; color: #1e3a8a; }
-.badge-amarelo { background-color: #fde047; color: #854d0e; }
-.badge-roxo { background-color: #c4b5fd; color: #4c1d95; }
 
-/* Status */
+/* Badges de Tecnologias (Meus Projetos) */
+.badge-tech {
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-block;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    /* Cor padrão caso a tecnologia não esteja mapeada abaixo */
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+/* Paleta de Cores Dinâmicas */
+.badge-python { background-color: #bfdbfe; color: #1e40af; }
+.badge-mysql, .badge-sql { background-color: #fed7aa; color: #9a3412; }
+.badge-java { background-color: #fecaca; color: #991b1b; }
+.badge-typescript, .badge-javascript { background-color: #fef08a; color: #854d0e; }
+.badge-html, .badge-css { background-color: #d9f99d; color: #3f6212; }
+.badge-django, .badge-spring { background-color: #bbf7d0; color: #166534; }
+.badge-php { background-color: #e9d5ff; color: #6b21a8; }
+
 .badge-status {
+
     padding: 6px 12px;
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 700;
-    display: inline-block;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.status-aprovado { background-color: #bbf7d0; color: #166534; }
-.status-ajustes { background-color: #fed7aa; color: #9a3412; }
+
+.status-aprovado { background-color: #a7f3d0; color: #065f46; }
+.status-ajustes { background-color: #fde68a; color: #92400e; }
+.status-rascunho { background-color: #e5e7eb; color: #4b5563; }
+
+/* ================== ACCORDION E TRACKER ================== */
+.linha-expandivel { display: none; background-color: #f8fafc; }
+.linha-expandivel.aberta { display: table-row; }
+
+.tracker-box {
+    background-color: #1f2937; 
+    border-radius: 12px;
+    padding: 32px 40px;
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+}
+
+.stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+    position: relative;
+    flex: 1;
+}
+
+.step-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #1f2937;
+    border: 2px solid #4b5563;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.4s ease;
+}
+
+.step-label { color: #9ca3af; font-size: 0.9rem; font-weight: 600; }
+.step.active .step-label { color: #ffffff; }
+
+.stepper::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 3px;
+    background-color: #4b5563;
+    z-index: 1;
+}
+
+.stepper-progress {
+    position: absolute;
+    top: 24px;
+    left: 12.5%;
+    height: 3px;
+    z-index: 1;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease;
+}
+
+/* Lógica das Cores do Tracker */
+.tracker-box[data-status="RASCUNHO"] .stepper-progress { width: 0%; background-color: #9ca3af; }
+.tracker-box[data-status="RASCUNHO"] .step.active .step-circle { border-color: #9ca3af; color: #ffffff; }
+.tracker-box[data-status="RASCUNHO"] .tracker-mensagem { color: #a1a1aa; }
+
+.tracker-box[data-status="AJUSTES"] .stepper-progress { width: 25%; background-color: var(--color-primary); }
+.tracker-box[data-status="AJUSTES"] .step.active .step-circle { border-color: var(--color-primary); color: #ffffff; box-shadow: 0 0 12px rgba(236, 110, 24, 0.25); }
+.tracker-box[data-status="AJUSTES"] .step.etapa-atual .step-circle { animation: pulso-laranja 2s infinite; }
+.tracker-box[data-status="AJUSTES"] .tracker-mensagem { color: #fdba74; }
+
+.tracker-box[data-status="REVISAO"] .stepper-progress { width: 50%; background-color: #eab308; }
+.tracker-box[data-status="REVISAO"] .step.active .step-circle { border-color: #eab308; color: #ffffff; box-shadow: 0 0 12px rgba(234, 179, 8, 0.25); }
+.tracker-box[data-status="REVISAO"] .step.etapa-atual .step-circle { animation: pulso-amarelo 2s infinite; }
+.tracker-box[data-status="REVISAO"] .tracker-mensagem { color: #fde047; }
+
+.tracker-box[data-status="APROVADO"] .stepper-progress { width: 75%; background-color: #4ade80; }
+.tracker-box[data-status="APROVADO"] .step.active .step-circle { border-color: #4ade80; color: #ffffff; box-shadow: 0 0 12px rgba(74, 222, 128, 0.25); }
+.tracker-box[data-status="APROVADO"] .tracker-mensagem { color: #4ade80; }
+
+.tracker-mensagem { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-top: 16px; font-weight: 600; }
+
+@keyframes pulso-verde {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+@keyframes pulso-amarelo {
+    0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(234, 179, 8, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+}
+@keyframes pulso-laranja {
+    0% { box-shadow: 0 0 0 0 rgba(236, 110, 24, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(236, 110, 24, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(236, 110, 24, 0); }
+}
+
+/* ================== PAGINAÇÃO ================== */
+.paginacao-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    border-radius: 0 0 12px 12px; 
+}
+.paginacao-info { color: #6b7280; font-size: 0.85rem; }
+.paginacao-botoes { display: flex; gap: 6px; }
+
+.btn-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-pagina.bg-laranja { background-color: var(--color-primary); border: 1px solid var(--color-primary); color: #ffffff; }
+.btn-pagina.ativo { background-color: #eff6ff; border: 1px solid #3b82f6; color: #1e3a8a; }
+.btn-pagina.inativo { background-color: #ffffff; border: 1px solid #d1d5db; color: #4b5563; }
+.btn-pagina.inativo:hover { background-color: #f9fafb; }
+
+@media (max-width: 600px) {
+    .step-label { display: none; }
+    .tracker-box { padding: 24px 16px; }
+}

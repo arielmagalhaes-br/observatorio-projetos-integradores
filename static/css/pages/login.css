@@ -1,0 +1,124 @@
+/* ================= FUNDO E CENTRALIZAÇÃO ================= */
+.login-body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f6f8; /* Aquele cinza clarinho do Figma */
+    font-family: var(--font-body), sans-serif;
+    
+    /* Flexbox para centralizar tudo no meio da tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px; /* Largura ideal para não ficar esticado */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ================= LOGO ================= */
+.login-logo {
+    margin-bottom: 32px;
+}
+
+.login-logo img {
+    max-width: 220px;
+    height: auto;
+}
+
+/* ================= CARD PRINCIPAL ================= */
+.login-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 40px 32px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.login-title {
+    color: #1d4ed8; /* Azul escuro do título */
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 32px 0;
+}
+
+/* ================= FORMULÁRIO ================= */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.input-group input {
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #5100ff; /* Fica roxo quando clica */
+}
+
+.input-group input::placeholder {
+    color: #9ca3af;
+}
+
+/* ================= BOTÃO ENTRAR ================= */
+.btn-entrar {
+    background-color: #5100ff; /* Roxo do protótipo */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.2s;
+}
+
+.btn-entrar:hover {
+    background-color: #4000cc; /* Roxo um pouco mais escuro no hover */
+}
+
+/* ================= LINK ESQUECI A SENHA ================= */
+.login-links {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.login-links a {
+    color: #6b7280;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    text-underline-offset: 4px; /* Deixa o sublinhado um pouquinho afastado do texto */
+}
+
+.login-links a:hover {
+    color: #111827;
+}

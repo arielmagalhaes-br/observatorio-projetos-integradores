@@ -7,19 +7,24 @@
 
     <title>{% block title %}Conecta PI{% endblock %}</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/variables.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/card.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/buttons.css'%}">
     <link rel="stylesheet" href="{% static 'css/components/inputs.css'%}">  
+    <link rel="shortcut icon" href="{% static 'css/img/logo.png' %}" type="image/png">
 
     {% block extra_css %}{% endblock %}
 </head> 
 <body>
     <div class="app-layout">
-        
-        <aside class="sidebar" id="sidebar">
+        {% if user.is_authenticated %}
+        <aside class="sidebar {% if usuario_professor and not usuario_admin %}sidebar--professor{% endif %} {% if request.resolver_match.url_name == 'professor_dashboard' or request.resolver_match.url_name == 'admin_dashboard' or request.resolver_match.url_name == 'curadoria' or request.resolver_match.url_name == 'analisar_projeto' or request.resolver_match.url_name == 'parcerias' or request.resolver_match.url_name == 'matchmaking' %}sidebar--collapsed{% endif %}" id="sidebar">
             
             <div class="sidebar__header">
                 <div class="sidebar__logo-wrapper">
@@ -37,14 +42,43 @@
                 
                 <span class="sidebar__label">MENU</span>
 
+                <!-- 1. Dashboard -->
+                {% if usuario_admin or usuario_professor %}
+                <a href="{% if usuario_admin %}{% url 'admin_dashboard' %}{% else %}{% url 'professor_dashboard' %}{% endif %}" class="sidebar__link {% if request.resolver_match.url_name == 'admin_dashboard' or request.resolver_match.url_name == 'professor_dashboard' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="sidebar__text">Dashboard</span>
+                </a>
+                {% elif usuario_parceiro %}
+                <a href="{% url 'parceiro_dashboard' %}" class="sidebar__link {% if request.resolver_match.url_name == 'parceiro_dashboard' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="sidebar__text">Dashboard</span>
+                </a>
+                {% else %}
                 <a href="{% url 'home' %}" class="sidebar__link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
-                    <span class="sidebar__text">Página Inicial</span>
+                    <span class="sidebar__text">Dashboard</span>
                 </a>
+                {% endif %}
 
+                <!-- 2. Curadoria (Professor) ou Novo Projeto / Meus Projetos (Aluno) -->
+                {% if usuario_admin or usuario_professor %}
+                <a href="{% url 'curadoria' %}" class="sidebar__link {% if request.resolver_match.url_name == 'curadoria' or request.resolver_match.url_name == 'analisar_projeto' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    <span class="sidebar__text">Curadoria</span>
+                </a>
+                {% elif usuario_aluno %}
                 <a href="{% url 'novo_projeto' %}" class="sidebar__link {% if request.resolver_match.url_name == 'novo_projeto' %}active{% endif %}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -60,25 +94,117 @@
                     </svg>
                     <span class="sidebar__text">Meus Projetos</span>
                 </a>
+                {% endif %}
 
-                    </nav>
+                <!-- 3. Usuários (Admin) ou Matchmaking (Professor) -->
+                {% if usuario_admin %}
+                <a href="/admin/auth/user/" class="sidebar__link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span class="sidebar__text">Usuários</span>
+                </a>
+                {% elif usuario_professor %}
+                <a href="{% url 'matchmaking' %}" class="sidebar__link {% if request.resolver_match.url_name == 'matchmaking' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        <line x1="12" y1="11" x2="12" y2="17"></line>
+                        <line x1="9" y1="14" x2="15" y2="14"></line>
+                    </svg>
+                    <span class="sidebar__text">Matchmaking</span>
+                </a>
+                {% endif %}
+
+                <!-- 4. Vitrine (Comum) -->
+                <a href="{% url 'vitrine' %}" class="sidebar__link {% if request.resolver_match.url_name == 'vitrine' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span class="sidebar__text">Vitrine</span>
+                </a>
+
+                <!-- 5. Parcerias (Professor apenas) -->
+                {% if usuario_admin or usuario_professor %}
+                <a href="{% url 'parcerias' %}" class="sidebar__link {% if request.resolver_match.url_name == 'parcerias' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m11 17 2 2a1 1 0 1 0 3-3"></path>
+                        <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 6"></path>
+                        <path d="m21 3 1 11h-2"></path>
+                        <path d="M3 14 8 9"></path>
+                        <path d="M2 13a6 6 0 0 1 3-3"></path>
+                        <path d="M7 11a6 6 0 0 1 3-3"></path>
+                    </svg>
+                    <span class="sidebar__text">Parcerias</span>
+                </a>
+                {% endif %}
+
+                <!-- 6. Perfil (Comum) -->
+                <a href="{% url 'perfil' %}" class="sidebar__link {% if request.resolver_match.url_name == 'perfil' or request.resolver_match.url_name == 'editar_perfil' %}active{% endif %}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="sidebar__text">Perfil</span>
+                </a>
+            </nav>
                     
-                    <div class="sidebar__footer">
-                        <a href="#" class="sidebar__link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                <polyline points="16 17 21 12 16 7"></polyline>
-                                <line x1="21" y1="12" x2="9" y2="12"></line>
-                            </svg>
-                            <span class="sidebar__text">Sair</span>
+            <div class="sidebar__footer">
+                <a href="{% url 'sair' %}" class="sidebar__link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span class="sidebar__text">Sair</span>
                 </a>
             </div>
         </aside>
+        {% endif %}
 
-        <main class="main-content">
+    <main class="main-content {% if not user.is_authenticated %}full-width{% endif %}">
+        <div class="page-container">
+
+            {% if messages %}
+                <style>
+                    .alerta-global {
+                        padding: 16px; 
+                        border-radius: 8px; 
+                        font-weight: 600; 
+                        font-family: var(--font-body), sans-serif;
+                        margin-bottom: 16px;
+                    }
+                    .alerta-erro {
+                        background-color: #fee2e2; 
+                        color: #ef4444; 
+                        border: 1px solid #fca5a5;
+                    }
+                    .alerta-sucesso {
+                        background-color: #dcfce7; 
+                        color: #166534; 
+                        border: 1px solid #86efac;
+                    }
+                </style>
+                
+                <div style="margin-bottom: 24px;">
+                    {% for message in messages %}
+                        <div class="alerta-global {% if message.tags == 'error' %}alerta-erro{% else %}alerta-sucesso{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             {% block content %}
             {% endblock %}
-        </main>
+            
+        </div>
+    </main>
         
     </div>
 
@@ -87,9 +213,11 @@
             const toggleBtn = document.getElementById('toggle-btn');
             const sidebar = document.getElementById('sidebar');
 
-            toggleBtn.addEventListener('click', function() {
-                sidebar.classList.toggle('sidebar--collapsed');
-            });
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('sidebar--collapsed');
+                });
+            }
         });
     </script>
 </body>

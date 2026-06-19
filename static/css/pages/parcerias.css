@@ -1,0 +1,311 @@
+.parcerias-page {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    padding: 38px 0 24px;
+    font-family: var(--font-body, sans-serif);
+}
+
+.parcerias-header {
+    margin: 0 0 34px 12px;
+}
+
+.parcerias-header h1 {
+    margin: 0 0 8px;
+    color: var(--color-secondary);
+    font-size: 2.35rem;
+    line-height: 1.05;
+    font-weight: 900;
+}
+
+.parcerias-header p {
+    margin: 0;
+    color: #7f8499;
+    font-size: 1.02rem;
+    font-weight: 800;
+}
+
+.parcerias-panel {
+    min-height: 810px;
+    background-color: #ffffff;
+    border: 1px solid #d4d7dd;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.parcerias-toolbar {
+    min-height: 72px;
+    padding: 18px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #d4d7dd;
+    background-color: #ffffff;
+}
+
+.parcerias-search {
+    width: 300px;
+    height: 34px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 9px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.parcerias-search input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    color: var(--color-primary);
+    background-color: transparent;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+.parcerias-search input::placeholder {
+    color: var(--color-primary);
+    opacity: 0.7;
+}
+
+.parcerias-filter {
+    height: 34px;
+    min-width: 94px;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.parcerias-filter select {
+    width: 100%;
+    border: none;
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.parcerias-count {
+    max-width: 138px;
+    margin-left: 4px;
+    color: #7f8499;
+    font-size: 0.93rem;
+    line-height: 1.05;
+    font-weight: 700;
+}
+
+.parcerias-grid {
+    min-height: 704px;
+    padding: 30px 14px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 22px;
+}
+
+.parceria-card {
+    min-height: 264px;
+    padding: 20px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid #bfc3cc;
+    border-radius: 16px;
+    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.24);
+}
+
+.parceria-card h2 {
+    margin: 0 0 11px;
+    color: var(--color-secondary);
+    font-size: 1rem;
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.parceria-sector {
+    width: fit-content;
+    min-width: 96px;
+    min-height: 28px;
+    margin-bottom: 11px;
+    padding: 0 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background-color: #34c759;
+    color: #000000;
+    font-size: 0.61rem;
+    font-weight: 700;
+}
+
+.parceria-sector--eventos {
+    background-color: #ffd166;
+}
+
+.parceria-demand {
+    min-height: 94px;
+    padding: 12px 10px;
+    border: 1px solid #c7cbd3;
+    border-radius: 5px;
+    background-color: #e8e9ec;
+}
+
+.parceria-demand h3 {
+    margin: 0 0 16px;
+    color: #000000;
+    font-size: 0.85rem;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+.parceria-demand p {
+    margin: 0;
+    color: #5f6068;
+    font-size: 0.68rem;
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+}
+
+.parceria-meta {
+    margin-top: auto;
+    padding-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 8px 16px;
+}
+
+.parceria-meta strong {
+    grid-column: 1 / -1;
+    color: #5f6068;
+    font-size: 0.93rem;
+    line-height: 1;
+    font-weight: 900;
+}
+
+.parceria-ods {
+    min-width: 48px;
+    min-height: 28px;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background-color: #0072ce;
+    color: #000000;
+    font-size: 0.62rem;
+    font-weight: 800;
+}
+
+.parceria-ods--11 {
+    background-color: #f59e0b;
+}
+
+.parceria-more {
+    min-width: 94px;
+    min-height: 30px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.93rem;
+    font-weight: 900;
+    text-decoration: none;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+.parceria-card--empty {
+    background-color: #ffffff;
+}
+
+.parcerias-footer {
+    min-height: 48px;
+    padding: 0 10px 10px 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    color: #7f8499;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.parcerias-pagination {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.parcerias-pagination a,
+.parcerias-pagination span {
+    width: 28px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.parcerias-pagination a.active {
+    background-color: #0869ff;
+}
+
+.parcerias-pagination a:nth-child(3),
+.parcerias-pagination span:nth-child(3) {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    color: #7f8499;
+}
+
+@media (max-width: 920px) {
+    .parcerias-page {
+        padding-top: 16px;
+    }
+
+    .parcerias-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .parcerias-search,
+    .parcerias-filter {
+        width: 100%;
+    }
+
+    .parcerias-count {
+        max-width: none;
+    }
+
+    .parcerias-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .parcerias-panel {
+        min-height: auto;
+    }
+}

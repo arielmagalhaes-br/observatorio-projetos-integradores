@@ -1,8 +1,42 @@
-/* ================= CABEÇALHO DO FORMULÁRIO ================= */
+/* ================= CABEÇALHO E MENSAGENS ================= */
+.form-messages {
+    margin-bottom: var(--spacing-lg, 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
+}
+
+.form-message--success {
+    background-color: var(--color-success-bg, #dcfce7);
+    color: var(--color-success, #166534);
+    border-color: #bbf7d0;
+}
+
+.form-message--error {
+    background-color: #fee2e2;
+    color: var(--color-danger, #ef4444);
+    border-color: #fecaca;
+}
+
+.required-label::after {
+    content: ' *';
+    color: var(--color-danger, #ef4444);
+}
+
 .form-header {
     position: relative;
     padding-bottom: var(--spacing-sm, 16px);
-    margin-bottom: var(--spacing-md, 24px);
+    margin-bottom: var(--spacing-xl, 32px);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -19,18 +53,17 @@
 .form-header__subtitle {
     font-family: var(--font-body, sans-serif);
     font-size: 0.95rem;
-    color: #6b7280;
+    color: var(--color-text-muted, #6b7280);
     margin: 0;
 }
 
-/* A LINHA LARANJA DE DESTAQUE */
 .form-header__decorator {
     display: block;
     width: 60px;
     height: 4px;
-    background-color: #f59e0b;
-    border-radius: 2px; 
-    margin: 8px 0 16px 0; 
+    background-color: var(--color-warning, #f59e0b);
+    border-radius: 2px;
+    margin: 8px 0 16px 0;
 }
 
 .form-header__instruction {
@@ -40,62 +73,169 @@
     color: var(--color-text-main, #111827);
     margin: 0;
 }
-/* ================= ESTRUTURA DO FORMULÁRIO (MOBILE-FIRST) ================= */
+
+.form-header__hint,
+.form-help {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #6b7280;
+    margin: 8px 0 0;
+}
+
+.form-header__hint {
+    max-width: 760px;
+    color: #92400e;
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-help--full {
+    grid-column: 1 / -1;
+}
+
+/* ================= ESTRUTURA DO FORMULÁRIO (PROJETO FORM) ================= */
 .project-form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg, 32px);
+    gap: var(--spacing-lg, 24px);
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.form-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
+/* ================= CARTÕES DE FORMULÁRIO (FORM CARDS) ================= */
+.form-card {
+    background-color: var(--color-surface, #ffffff);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 16px;
+    padding: var(--spacing-lg, 24px) var(--spacing-xl, 32px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -2px rgba(0, 0, 0, 0.01);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.form-row {
+.form-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+.form-card__title {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 1.25rem;
+    color: #1e3a8a; /* Azul premium do Conecta PI */
+    font-weight: 700;
+    margin: 0 0 24px 0;
+    border-bottom: 2px solid var(--color-background, #f3f4f6);
+    padding-bottom: 12px;
+}
+
+/* Grids e Alinhamentos */
+.form-card__grid {
     display: flex;
-    flex-direction: column; /* No celular, um em cima do outro */
-    gap: 8px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* ================= LABELS E INPUTS ================= */
+/* Configurações Responsivas (Desktop) */
+@media (min-width: 768px) {
+    .form-card__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 28px;
+    }
+
+    .form-card__grid--3cols {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px 24px;
+    }
+
+    .form-card__grid--vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group--full {
+        grid-column: span 2;
+    }
+}
+
+/* ================= ELEMENTOS DE ENTRADA (INPUTS E LABELS) ================= */
 .form-label {
     font-family: var(--font-heading, sans-serif);
-    font-size: 0.95rem;
-    color: #0f3d7a; 
+    font-size: 0.85rem;
+    color: #1e3a8a;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    display: block;
 }
 
+/* inputs em geral herdados do inputs.css e aprimorados */
 .form-input {
-    width: 100%;
-    background-color: #f3f4f6; 
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    padding: 12px 16px;
+    background-color: var(--color-surface-alt, #f8fafc);
+    border: 1px solid var(--color-input-border, #d1d5db);
+    border-radius: 8px;
+    padding: 10px 16px;
     font-family: var(--font-body, sans-serif);
     font-size: 0.95rem;
     color: var(--color-text-main, #111827);
-    transition: all 0.2s ease;
-}
-
-.form-input::placeholder {
-    color: #9ca3af;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .form-input:focus {
     outline: none;
-    border-color: #0f3d7a;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(15, 61, 122, 0.1);
+    border-color: var(--color-primary, #d97706);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+    background-color: var(--color-surface, #ffffff);
 }
 
 .form-textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 100px;
+    line-height: 1.5;
 }
 
-/* ================= DROPDOWN CUSTOMIZADO (MÚLTIPLA ESCOLHA) ================= */
+/* ================= MODERN FILE UPLOAD (SIMULATED DROPZONE) ================= */
+.form-input[type="file"] {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px;
+    background-color: var(--color-surface-alt, #f8fafc);
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    color: var(--color-text-muted, #6b7280);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.form-input[type="file"]:hover {
+    border-color: var(--color-primary, #d97706);
+    background-color: #fffbeb; /* Fundo levemente âmbar no hover */
+}
+
+.form-input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--color-primary, #d97706);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-body, sans-serif);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-input[type="file"]::file-selector-button:hover {
+    background-color: #b45309;
+}
+
+/* ================= CUSTOM DROPDOWNS (ODS/LINGUAGENS/BANCO) ================= */
 .custom-dropdown {
     position: relative;
     width: 100%;
@@ -103,50 +243,55 @@
 
 .custom-dropdown__button {
     width: 100%;
+    min-height: 44px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f3f4f6;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    padding: 12px 16px;
+    background-color: var(--color-surface-alt, #f8fafc);
+    border: 1px solid var(--color-input-border, #d1d5db);
+    border-radius: 8px;
+    padding: 10px 16px;
     cursor: pointer;
     font-family: var(--font-body, sans-serif);
     font-size: 0.95rem;
-    color: #6b7280;
+    color: var(--color-text-muted, #6b7280);
     transition: all 0.2s ease;
 }
 
 .custom-dropdown__button:hover {
-    background-color: #e5e7eb;
+    background-color: #f1f5f9;
+}
+
+.custom-dropdown__button:focus {
+    outline: none;
+    border-color: var(--color-primary, #d97706);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
 }
 
 .custom-dropdown__icon {
     transition: transform 0.3s ease;
+    color: var(--color-text-muted, #6b7280);
 }
 
-/* Gira a setinha quando recebe a classe do JS */
 .custom-dropdown.is-open .custom-dropdown__icon {
     transform: rotate(180deg);
 }
 
 .custom-dropdown__menu {
-    display: none; /* Escondido por padrão */
+    display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 6px);
     left: 0;
     width: 100%;
-    background-color: #ffffff;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    margin-top: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    max-height: 250px;
+    background-color: var(--color-surface, #ffffff);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 50;
+    max-height: 220px;
     overflow-y: auto;
 }
 
-/* Mostra o menu quando recebe a classe do JS */
 .custom-dropdown.is-open .custom-dropdown__menu {
     display: flex;
     flex-direction: column;
@@ -157,17 +302,23 @@
     align-items: center;
     padding: 12px 16px;
     cursor: pointer;
-    transition: background-color 0.2s;
-    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.15s;
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+}
+
+.custom-dropdown__option:last-child {
+    border-bottom: none;
 }
 
 .custom-dropdown__option:hover {
-    background-color: #f9fafb;
+    background-color: var(--color-surface-alt, #f8fafc);
 }
 
-/* Esconde o quadradinho do checkbox real */
 .custom-dropdown__checkbox {
-    display: none;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary, #d97706);
+    margin-right: 12px;
 }
 
 .custom-dropdown__label-text {
@@ -177,80 +328,67 @@
     flex-grow: 1;
 }
 
-/* Pinta de azul quando marcado */
 .custom-dropdown__checkbox:checked + .custom-dropdown__label-text {
-    color: #2563eb; 
-    font-weight: 700;
+    color: var(--color-primary, #d97706);
+    font-weight: 600;
 }
 
 .custom-dropdown__option:has(.custom-dropdown__checkbox:checked) {
-    background-color: #eff6ff; 
+    background-color: #fffbeb;
 }
 
-/* ================= RODAPÉ E BOTÕES ================= */
+/* ================= RODAPÉ DO FORMULÁRIO E AÇÕES ================= */
 .form-actions {
     display: flex;
-    flex-direction: column-reverse; /* No mobile, botão principal fica em cima */
-    gap: var(--spacing-md, 24px);
-    margin-top: var(--spacing-lg, 32px);
-    padding-top: var(--spacing-lg, 32px);
-    border-top: 1px solid #e5e7eb;
+    flex-direction: column-reverse;
+    gap: 16px;
+    margin-top: var(--spacing-xl, 32px);
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border, #e5e7eb);
 }
 
-.btn__form--save {
-    background-color: #f3f4f6;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    padding: 12px 16px;
-    font-family: var(--font-body, sans-serif);
-    font-size: 0.95rem;
-    color: var(--color-text-main, #111827);
-    transition: all 0.2s ease;
-}
-
-.btn__form--save:hover {
-    background-color: #e5e7eb;
-}
-
-.btn__form--share {
-    background-color: #2563eb;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 24px;
-    font-family: var(--font-body, sans-serif);
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn__form--share:hover {
-    background-color: #1e40af;
-}
-
-/* ================= MEDIA QUERIES (DESKTOP) ================= */
 @media (min-width: 768px) {
-    .form-row {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 32px;
-    }
-
-    .form-label {
-        width: 180px;
-        flex-shrink: 0;
-        padding-top: 12px;
-    }
-
-    .form-input, .custom-dropdown {
-        flex-grow: 1;
-    }
-
     .form-actions {
         flex-direction: row;
         justify-content: flex-end;
     }
 }
 
+.btn__form--save {
+    background-color: transparent;
+    border: 1px solid var(--color-border-strong, #d1d5db);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-muted, #4b5563);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
 
+.btn__form--save:hover {
+    background-color: #f3f4f6;
+    border-color: var(--color-text-muted, #9ca3af);
+    transform: translateY(-1px);
+}
+
+.btn__form--share {
+    background-color: var(--color-primary, #d97706);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(217, 119, 6, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn__form--share:hover {
+    background-color: #b45309;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(217, 119, 6, 0.35);
+}

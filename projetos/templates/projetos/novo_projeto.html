@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Novo Projeto | Conecta PI{% endblock %}
+{% block title %}{% if projeto_editando %}Editar Projeto{% else %}Novo Projeto{% endif %} | Conecta PI{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/pages/novo_projeto.css' %}">
@@ -9,233 +9,283 @@
 
 {% block content %}
     <header class="form-header">
-        <h1 class="form-header__title">Cadastro de Novo Projeto</h1>
-        <p class="form-header__subtitle">Submeta um novo projeto à avaliação para ser publicado na vitrine</p>
-        
+        <h1 class="form-header__title">{% if projeto_editando %}Editar Projeto{% else %}Cadastro de Novo Projeto{% endif %}</h1>
+        <p class="form-header__subtitle">
+            {% if projeto_editando %}
+                Continue seu rascunho ou ajuste o projeto para reenviar a curadoria
+            {% else %}
+                Submeta um novo projeto a avaliacao para ser publicado na vitrine
+            {% endif %}
+        </p>
         <span class="form-header__decorator"></span>
-
-        <p class="form-header__instruction">Preencha as informações do novo projeto:</p>
+        <p class="form-header__instruction">
+            {% if projeto_editando %}Revise as informacoes do projeto:{% else %}Preencha as informacoes do novo projeto:{% endif %}
+        </p>
+        <p class="form-header__hint">Rascunhos podem ficar incompletos. Para enviar para curadoria, os campos marcados com * e pelo menos um link util e uma imagem/print sao obrigatorios.</p>
     </header>
 
-    <form action="#" method="POST" class="project-form">
-        
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="titulo" class="form-label">Título:</label>
-                <input type="text" id="titulo" class="form-input" placeholder="Ex: Conecta PI">
-            </div>
-        </fieldset>
+    <form action="{% if projeto_editando %}{% url 'editar_projeto' projeto_editando.id %}{% else %}{% url 'novo_projeto' %}{% endif %}" method="POST" enctype="multipart/form-data" class="project-form">
+        {% csrf_token %}
 
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="autores" class="form-label">Autores (e-mails):</label>
-                <input type="text" id="autores" class="form-input" placeholder="E-mails dos autores separados por vírgula.">
-            </div>
-        </fieldset>
-
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="semestre" class="form-label">Semestre:</label>
-                <input type="text" id="semestre" class="form-input" placeholder="Ex: 2026.1">
-            </div>
-        </fieldset>
-
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label class="form-label">Detalhes Técnicos</label>
-                
-                <div class="custom-dropdown">
-                    
-                    <button type="button" class="custom-dropdown__button">
-                        <span class="custom-dropdown__text">Linguagens de Programação</span>
-                        <svg class="custom-dropdown__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-
-                    <div class="custom-dropdown__menu">
-                        
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="typescript" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">TypeScript / JavaScript</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="java" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Java</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="cpp" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">C++</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="outros" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Outros</span>
-                        </label>
-
+        {% if messages %}
+            <div class="form-messages">
+                {% for message in messages %}
+                    <div class="form-message form-message--{{ message.tags }}">
+                        {{ message }}
                     </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-card">
+            <h2 class="form-card__title">1. Informacoes Basicas</h2>
+            <div class="form-card__grid">
+                <div class="form-group">
+                    <label for="titulo" class="form-label required-label">Titulo do Projeto:</label>
+                    <input type="text" id="titulo" name="titulo" class="form-input" value="{{ form_data.titulo|default:'' }}" placeholder="Ex: Conecta PI">
                 </div>
-                <div class="custom-dropdown">
-                    
-                    <button type="button" class="custom-dropdown__button">
-                        <span class="custom-dropdown__text">Banco de Dados</span>
-                        <svg class="custom-dropdown__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-
-                    <div class="custom-dropdown__menu">
-                        
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="typescript" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">MySQL</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="java" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">MongoDB</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="cpp" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Firebase</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="outros" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Outros</span>
-                        </label>
-
-                    </div>
+                <div class="form-group">
+                    <label for="semestre" class="form-label required-label">Semestre:</label>
+                    <input type="text" id="semestre" name="semestre" class="form-input" value="{{ form_data.semestre|default:'' }}" placeholder="Ex: 2026.1">
                 </div>
-                <div class="custom-dropdown">
-                    
-                    <button type="button" class="custom-dropdown__button">
-                        <span class="custom-dropdown__text">ODS</span>
-                        <svg class="custom-dropdown__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-
-                    <div class="custom-dropdown__menu">
-                        
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="typescript" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Educação e Qualidade</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="java" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Trabalho Decente</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="cpp" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Indústria, Inovação</span>
-                        </label>
-
-                        <label class="custom-dropdown__option">
-                            <input type="checkbox" name="linguagens" value="outros" class="custom-dropdown__checkbox">
-                            <span class="custom-dropdown__label-text">Outros</span>
-                        </label>
-
-                    </div>
+                <div class="form-group form-group--full">
+                    <label for="autores" class="form-label">Autores (e-mails):</label>
+                    <input type="text" id="autores" name="autores" class="form-input" value="{{ form_data.autores|default:'' }}" placeholder="E-mails dos autores separados por virgula.">
+                    <p class="form-help">Seu usuario ja entra automaticamente como autor. Use este campo para adicionar colegas pelo e-mail.</p>
+                </div>
+                <div class="form-group form-group--full">
+                    <label for="resumo" class="form-label required-label">Resumo:</label>
+                    <textarea id="resumo" name="resumo" class="form-input form-textarea" rows="3" placeholder="Explique em poucas linhas o problema, a solucao e o publico do projeto.">{{ form_data.resumo|default:'' }}</textarea>
                 </div>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="resumo" class="form-label">Inspiração:</label>
-                <textarea id="resumo" class="form-input form-textarea" rows="4" placeholder="Como surgiu a ideia? Qual é o problema real que vocês decidiram resolver?"></textarea>
-            </div>
-        </fieldset>
+        <div class="form-card">
+            <h2 class="form-card__title">2. Detalhes Tecnicos</h2>
+            <div class="form-card__grid form-card__grid--3cols">
+                <div class="form-group">
+                    <label class="form-label required-label">Linguagens de Programacao:</label>
+                    <div class="custom-dropdown">
+                        <button type="button" class="custom-dropdown__button">
+                            <span class="custom-dropdown__text">Linguagens de Programacao</span>
+                            <svg class="custom-dropdown__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="custom-dropdown__menu">
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="linguagens" value="typescript" class="custom-dropdown__checkbox" {% if 'typescript' in form_lists.linguagens %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">TypeScript / JavaScript</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="linguagens" value="java" class="custom-dropdown__checkbox" {% if 'java' in form_lists.linguagens %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Java</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="linguagens" value="cpp" class="custom-dropdown__checkbox" {% if 'cpp' in form_lists.linguagens %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">C++</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="linguagens" value="outros" class="custom-dropdown__checkbox" {% if 'outros' in form_lists.linguagens %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Outros</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="resumo" class="form-label">O que ele faz:</label>
-                <textarea id="resumo" class="form-input form-textarea" rows="4" placeholder="Uma explicação detalhada, porém objetiva, das principais funcionalidades do seu produto."></textarea>
-            </div>
-        </fieldset>
+                <div class="form-group">
+                    <label class="form-label">Banco de Dados:</label>
+                    <div class="custom-dropdown">
+                        <button type="button" class="custom-dropdown__button">
+                            <span class="custom-dropdown__text">Banco de Dados</span>
+                            <svg class="custom-dropdown__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="custom-dropdown__menu">
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="banco_dados" value="mysql" class="custom-dropdown__checkbox" {% if 'mysql' in form_lists.banco_dados %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">MySQL</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="banco_dados" value="mongodb" class="custom-dropdown__checkbox" {% if 'mongodb' in form_lists.banco_dados %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">MongoDB</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="banco_dados" value="firebase" class="custom-dropdown__checkbox" {% if 'firebase' in form_lists.banco_dados %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Firebase</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="banco_dados" value="outros" class="custom-dropdown__checkbox" {% if 'outros' in form_lists.banco_dados %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Outros</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="resumo" class="form-label">Próximos Passos:</label>
-                <textarea id="resumo" class="form-input form-textarea" rows="4" placeholder="O que o sistema faria se vocês tivessem mais tempo e/ou recursos?"></textarea>
+                <div class="form-group">
+                    <label class="form-label required-label">ODS:</label>
+                    <div class="custom-dropdown">
+                        <button type="button" class="custom-dropdown__button">
+                            <span class="custom-dropdown__text">ODS</span>
+                            <svg class="custom-dropdown__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="custom-dropdown__menu">
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="ods" value="4" class="custom-dropdown__checkbox" {% if '4' in form_lists.ods %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Educacao e Qualidade</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="ods" value="8" class="custom-dropdown__checkbox" {% if '8' in form_lists.ods %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Trabalho Decente</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="ods" value="9" class="custom-dropdown__checkbox" {% if '9' in form_lists.ods %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Industria, Inovacao</span>
+                            </label>
+                            <label class="custom-dropdown__option">
+                                <input type="checkbox" name="ods" value="outros" class="custom-dropdown__checkbox" {% if 'outros' in form_lists.ods %}checked{% endif %}>
+                                <span class="custom-dropdown__label-text">Outros</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="logo" class="form-label">Logo do Projeto:</label>
-                
-                <input type="file" id="logo" name="logo" class="form-input" accept="image/*">
+        <div class="form-card">
+            <h2 class="form-card__title">3. Sobre o Projeto</h2>
+            <div class="form-card__grid form-card__grid--vertical">
+                <div class="form-group">
+                    <label for="inspiracao" class="form-label required-label">Inspiracao:</label>
+                    <textarea id="inspiracao" name="inspiracao" class="form-input form-textarea" rows="4" placeholder="Como surgiu a ideia? Qual e o problema real que voces decidiram resolver?">{{ form_data.inspiracao|default:'' }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="descricao" class="form-label required-label">O que ele faz:</label>
+                    <textarea id="descricao" name="descricao" class="form-input form-textarea" rows="4" placeholder="Uma explicacao detalhada, porem objetiva, das principais funcionalidades do seu produto.">{{ form_data.descricao|default:'' }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="proximos_passos" class="form-label">Proximos Passos:</label>
+                    <textarea id="proximos_passos" name="proximos_passos" class="form-input form-textarea" rows="4" placeholder="O que o sistema faria se voces tivessem mais tempo e/ou recursos?">{{ form_data.proximos_passos|default:'' }}</textarea>
+                </div>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="logo" class="form-label">Prints da Tela:</label>
-                
-                <input type="file" id="logo" name="logo" class="form-input" accept="image/*">
+        <div class="form-card">
+            <h2 class="form-card__title">4. Links e Midias</h2>
+            <div class="form-card__grid">
+                <div class="form-group">
+                    <label for="logo" class="form-label required-label">Logo do Projeto:</label>
+                    <input type="file" id="logo" name="logo" class="form-input" accept="image/*">
+                    {% if projeto_editando and projeto_editando.imagens.exists %}
+                        <p class="form-help">Este projeto ja possui imagem cadastrada. Envie outra apenas se quiser adicionar mais material.</p>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="prints" class="form-label">Prints da Tela:</label>
+                    <input type="file" id="prints" name="prints" class="form-input" accept="image/*" multiple>
+                </div>
+                <div class="form-group">
+                    <label for="link_repositorio" class="form-label required-label">Repositorio:</label>
+                    <input type="url" id="link_repositorio" name="link_repositorio" class="form-input" value="{{ form_data.link_repositorio|default:'' }}" placeholder="Link do GitHub, GitLab, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="link_prototipo" class="form-label">Prototipo:</label>
+                    <input type="url" id="link_prototipo" name="link_prototipo" class="form-input" value="{{ form_data.link_prototipo|default:'' }}" placeholder="Link do Figma, Adobe XD, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="link_demo" class="form-label">Acesso ao sistema:</label>
+                    <input type="url" id="link_demo" name="link_demo" class="form-input" value="{{ form_data.link_demo|default:'' }}" placeholder="Link para download na app store, ou do proprio website de acesso, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="link_video" class="form-label">Video de demonstracao:</label>
+                    <input type="url" id="link_video" name="link_video" class="form-input" value="{{ form_data.link_video|default:'' }}" placeholder="Link para video de demonstracao hospedado no YouTube, Vimeo, etc.">
+                </div>
+                <p class="form-help form-help--full">Para enviar para curadoria, informe pelo menos uma logo ou print e pelo menos um link util. O repositorio e a logo sao recomendados.</p>
             </div>
-        </fieldset>
-
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="repositorio" class="form-label">Repositório:</label>
-                <input type="url" id="repositorio" class="form-input" placeholder="Link do GitHub, GitLab, etc.">
-            </div>
-        </fieldset>
-
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="repositorio" class="form-label">Protótipo:</label>
-                <input type="url" id="repositorio" class="form-input" placeholder= "Link do Figma, Adobe XD, etc.">
-            </div>
-        </fieldset>
-
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="repositorio" class="form-label">Acesso ao sistema:</label>
-                <input type="url" id="repositorio" class="form-input" placeholder="Link para download na app store, ou do próprio website de acesso, etc.">
-            </div>
-        </fieldset>
-
-        <fieldset class="form-fieldset">
-            <div class="form-row">
-                <label for="repositorio" class="form-label">Vídeo de demonstração:</label>
-                <input type="url" id="repositorio" class="form-input" placeholder="Link para vídeo de demonstração hospedado no youtube, ou vimeo, etc.">
-            </div>
-        </fieldset>
+        </div>
 
         <footer class="form-actions">
-            <button type="button" class="btn__form--save">Salvar Rascunho</button>
-            <button type="submit" class="btn__form--share">Enviar para curadoria</button>
+            <button type="submit" name="acao" value="rascunho" class="btn__form--save">Salvar Rascunho</button>
+            <button type="submit" name="acao" value="enviar" class="btn__form--share">
+                {% if projeto_editando and projeto_editando.status == 'AJUSTES' %}Reenviar para curadoria{% else %}Enviar para curadoria{% endif %}
+            </button>
         </footer>
-
     </form>
-</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.custom-dropdown');
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('.custom-dropdown');
 
-    dropdowns.forEach(function(dropdown) {
-        const button = dropdown.querySelector('.custom-dropdown__button');
-        const menu = dropdown.querySelector('.custom-dropdown__menu');
+        dropdowns.forEach(function(dropdown) {
+            const button = dropdown.querySelector('.custom-dropdown__button');
+            const menu = dropdown.querySelector('.custom-dropdown__menu');
 
-        button.addEventListener('click', function(event) {
-            event.stopPropagation();
-            dropdown.classList.toggle('is-open');
+            button.addEventListener('click', function(event) {
+                event.stopPropagation();
+                dropdown.classList.toggle('is-open');
+            });
+
+            menu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
         });
 
-        menu.addEventListener('click', function(event) {
-            event.stopPropagation();
+        document.addEventListener('click', function() {
+            dropdowns.forEach(function(dropdown) {
+                dropdown.classList.remove('is-open');
+            });
         });
+
+        const camposTexto = document.querySelectorAll('input[type="text"], input[type="url"], textarea');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const formulario = document.querySelector('form.project-form');
+
+        camposTexto.forEach(campo => {
+            const identificador = campo.name || campo.id;
+            if (identificador && !campo.value) {
+                const textoSalvo = localStorage.getItem('autosave_projeto_' + identificador);
+                if (textoSalvo) campo.value = textoSalvo;
+            }
+        });
+
+        checkboxes.forEach(chk => {
+            const identificador = chk.name + '_' + chk.value;
+            const salvo = localStorage.getItem('autosave_chk_' + identificador);
+            if (salvo === 'true') chk.checked = true;
+        });
+
+        camposTexto.forEach(campo => {
+            campo.addEventListener('input', function() {
+                const identificador = this.name || this.id;
+                if (identificador) localStorage.setItem('autosave_projeto_' + identificador, this.value);
+            });
+        });
+
+        checkboxes.forEach(chk => {
+            chk.addEventListener('change', function() {
+                const identificador = this.name + '_' + this.value;
+                localStorage.setItem('autosave_chk_' + identificador, this.checked);
+            });
+        });
+
+        if (formulario) {
+            formulario.addEventListener('submit', function(event) {
+                const submitter = event.submitter;
+                if (submitter && submitter.value === 'rascunho') {
+                    camposTexto.forEach(campo => {
+                        const identificador = campo.name || campo.id;
+                        if (identificador) localStorage.removeItem('autosave_projeto_' + identificador);
+                    });
+                    checkboxes.forEach(chk => {
+                        const identificador = chk.name + '_' + chk.value;
+                        localStorage.removeItem('autosave_chk_' + identificador);
+                    });
+                }
+            });
+        }
     });
-});
 </script>
 {% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/pages/vitrine.css' %}">
+
+<div class="vitrine-container">
+
+    <header class="dashboard__header">
+        <h1 class="dashboard__title">Vitrine de Projetos</h1>
+        <p class="dashboard__subtitle">Explore os Projetos Integradores desenvolvidos na Faculdade SENAC</p>
+        <span class="dashboard__decorator"></span>
+    </header>
+
+    <div class="search-filter-card">
+        <form method="GET" action="{% url 'vitrine' %}" class="search-filter-form">
+            <div class="search-input-group">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="live-search-input" name="q" value="{{ termo_pesquisa|default:'' }}" placeholder="Buscar projeto por título ou palavra-chave...">
+            </div>
+            
+            <div class="filter-divider"></div>
+            
+            <div class="filtros-figma-container">
+                <div class="dropdown-custom">
+                    <input type="hidden" name="ods" value="{{ filtro_ods|default:'' }}">
+                    <button type="button" class="btn-filtro-figma toggle-dropdown">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        <span class="texto-dropdown">
+                            {% if filtro_ods == '4' %}Educação
+                            {% elif filtro_ods == '8' %}Trabalho
+                            {% elif filtro_ods == '9' %}Indústria
+                            {% else %}ODS{% endif %}
+                        </span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="menu-dropdown">
+                        <div class="item-dropdown" data-value="">Todos</div>
+                        <div class="item-dropdown {% if filtro_ods == '4' %}selecionado{% endif %}" data-value="4">Educação</div>
+                        <div class="item-dropdown {% if filtro_ods == '8' %}selecionado{% endif %}" data-value="8">Trabalho</div>
+                        <div class="item-dropdown {% if filtro_ods == '9' %}selecionado{% endif %}" data-value="9">Indústria</div>
+                    </div>
+                </div>
+
+                <div class="dropdown-custom">
+                    <input type="hidden" name="linguagem" value="{{ linguagem|default:'' }}">
+                    <button type="button" class="btn-filtro-figma toggle-dropdown">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        <span class="texto-dropdown">
+                            {% if linguagem == 'typescript' %}TypeScript
+                            {% elif linguagem == 'java' %}Java
+                            {% elif linguagem == 'cpp' %}C++
+                            {% elif linguagem == 'python' %}Python
+                            {% else %}Linguagens{% endif %}
+                        </span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="menu-dropdown">
+                        <div class="item-dropdown" data-value="">Todas</div>
+                        <div class="item-dropdown {% if linguagem == 'typescript' %}selecionado{% endif %}" data-value="typescript">TypeScript</div>
+                        <div class="item-dropdown {% if linguagem == 'java' %}selecionado{% endif %}" data-value="java">Java</div>
+                        <div class="item-dropdown {% if linguagem == 'cpp' %}selecionado{% endif %}" data-value="cpp">C++</div>
+                        <div class="item-dropdown {% if linguagem == 'python' %}selecionado{% endif %}" data-value="python">Python</div>
+                    </div>
+                </div>
+
+                <div class="dropdown-custom">
+                    <input type="hidden" name="banco" value="{{ banco|default:'' }}">
+                    <button type="button" class="btn-filtro-figma toggle-dropdown">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        <span class="texto-dropdown">
+                            {% if banco == 'mysql' %}MySQL
+                            {% elif banco == 'mongodb' %}MongoDB
+                            {% elif banco == 'firebase' %}Firebase
+                            {% else %}Banco de Dados{% endif %}
+                        </span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="menu-dropdown">
+                        <div class="item-dropdown" data-value="">Todos</div>
+                        <div class="item-dropdown {% if banco == 'mysql' %}selecionado{% endif %}" data-value="mysql">MySQL</div>
+                        <div class="item-dropdown {% if banco == 'mongodb' %}selecionado{% endif %}" data-value="mongodb">MongoDB</div>
+                        <div class="item-dropdown {% if banco == 'firebase' %}selecionado{% endif %}" data-value="firebase">Firebase</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" style="display: none;"></button>
+        </form>
+    </div>
+
+    <div class="vitrine-results-info">
+        {% if projetos and projetos|length > 0 %}
+            Exibindo <strong>{{ projetos|length }}</strong> projeto{{ projetos|length|pluralize }} encontrado{{ projetos|length|pluralize }}
+        {% endif %}
+    </div>
+
+    <div id="projetos-grid" class="projetos-grid">
+        {% include 'projetos/partials/grid_projetos.html' %}
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('.dropdown-custom');
+
+        dropdowns.forEach(dropdown => {
+            const btn = dropdown.querySelector('.toggle-dropdown');
+            const menu = dropdown.querySelector('.menu-dropdown');
+            const items = dropdown.querySelectorAll('.item-dropdown');
+            const input = dropdown.querySelector('input[type="hidden"]');
+            const form = dropdown.closest('form');
+
+            // Abre/Fecha o menu ao clicar no botão
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Fecha os outros dropdowns antes de abrir este
+                dropdowns.forEach(d => { if(d !== dropdown) d.classList.remove('aberto'); });
+                dropdown.classList.toggle('aberto');
+            });
+
+            // Seleciona uma opção e submete o formulário
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const valor = item.getAttribute('data-value');
+                    input.value = valor; // Preenche o campo escondido
+                    form.submit(); // Envia para o Django
+                });
+            });
+        });
+
+        // Fecha qualquer dropdown se clicar fora deles
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown-custom')) {
+                dropdowns.forEach(d => d.classList.remove('aberto'));
+            }
+        });
+    });
+</script>
+<script src="{% static 'js/live_search.js' %}"></script>
+{% endblock %}

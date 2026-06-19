@@ -14,9 +14,9 @@ body {
 
 /* ================= BARRA LATERAL (SIDEBAR) ================= */
 .sidebar {
-    width: 260px; /* Um pouco mais larga para acomodar a tipografia forte */
-    background-color: #ffffff;
-    border-right: 1px solid #d1d5db; /* Borda cinza um pouco mais marcada */
+    width: var(--sidebar-width, 260px);
+    background-color: var(--color-sidebar-bg);
+    border-right: 1px solid var(--color-sidebar-border);
     display: flex;
     flex-direction: column;
     transition: width 0.3s ease;
@@ -28,7 +28,7 @@ body {
 
 /* Estado Encolhido */
 .sidebar--collapsed {
-    width: 80px;
+    width: var(--sidebar-collapsed-width, 80px);
 }
 
 /* Cabeçalho com Logótipo e Botão */
@@ -37,7 +37,8 @@ body {
     align-items: flex-start;
     justify-content: space-between;
     padding: 16px;
-    border-bottom: 1px solid #d1d5db;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--color-sidebar-border);
     min-height: 80px;
 }
 
@@ -58,7 +59,7 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #4b5563; 
+    color: var(--color-primary) !important; 
     padding: 4px;
     border-radius: 4px;
     display: flex;
@@ -67,8 +68,8 @@ body {
 }
 
 .sidebar__toggle:hover {
-    background-color: #f3f4f6;
-    color: #111827;
+    background-color: var(--color-sidebar-bg-hover);
+    color: var(--color-primary-hover);
 }
 
 /* Navegação (Lista de Links) */
@@ -84,7 +85,7 @@ body {
     font-family: var(--font-heading, sans-serif);
     font-size: 0.75rem;
     font-weight: 800;
-    color: #374151;
+    color: rgba(255, 255, 255, 0.5);
     padding: 8px 24px;
     margin-bottom: 8px;
     letter-spacing: 0.05em;
@@ -97,7 +98,7 @@ body {
     gap: 16px;
     padding: 14px 24px;
     text-decoration: none;
-    color: #111827; /* Quase preto */
+    color: var(--color-sidebar-text);
     font-family: var(--font-body, sans-serif);
     font-size: 1.05rem; /* Fonte levemente maior */
     font-weight: 700; /* Negrito como no print */
@@ -107,33 +108,35 @@ body {
 
 .sidebar__link svg {
     flex-shrink: 0;
-    color: #374151; /* Ícones cinza escuro */
+    color: var(--color-sidebar-text); /* Ícones combinando */
+    transition: color 0.2s ease;
 }
 
 /* Efeito ao passar o rato (Hover) */
 .sidebar__link:hover {
-    background-color: #f9fafb;
+    background-color: var(--color-sidebar-bg-hover);
+    color: var(--color-sidebar-text-active);
 }
 
 .sidebar__link:hover svg {
-    color: #111827;
+    color: var(--color-sidebar-text-active);
 }
 
-/* ESTADO ATIVO (Página atual) - Cinza em vez de Azul */
+/* ESTADO ATIVO (Página atual) */
 .sidebar__link.active {
-    background-color: #e5e7eb; /* Fundo cinza sólido igual ao Figma */
-    color: #000000; 
-    border-left-color: #9ca3af; /* Borda cinza na esquerda */
+    background-color: var(--color-sidebar-bg-active);
+    color: var(--color-sidebar-text-active); 
+    border-left-color: var(--color-sidebar-text-active); /* Borda branca na esquerda */
 }
 
 .sidebar__link.active svg {
-    color: #000000;
+    color: var(--color-sidebar-text-active);
 }
 
 /* Rodapé (Botão Sair) */
 .sidebar__footer {
     padding: 16px 0;
-    border-top: 1px solid #d1d5db;
+    border-top: 1px solid var(--color-sidebar-border);
 }
 
 /* ================= REGRAS PARA QUANDO A BARRA ESTÁ FECHADA ================= */
@@ -146,6 +149,8 @@ body {
 .sidebar--collapsed .sidebar__header {
     justify-content: center; /* Centraliza apenas o botão toggle */
     padding: 24px 0;
+    background-color: var(--color-sidebar-bg);
+    border-bottom: 1px solid var(--color-sidebar-border);
 }
 
 .sidebar--collapsed .sidebar__link {

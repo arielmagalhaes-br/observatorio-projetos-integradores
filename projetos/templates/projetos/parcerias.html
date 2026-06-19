@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Parcerias | Conecta PI{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/parcerias.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="parcerias-page">
+    <header class="parcerias-header">
+        <h1>Parcerias</h1>
+        <p>Confira as demandas do ecossistema de empresas e ONGs</p>
+    </header>
+
+    <section class="parcerias-panel">
+        <form method="GET" action="{% url 'parcerias' %}" class="parcerias-toolbar">
+            <div class="parcerias-search">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" name="q" value="{{ termo_pesquisa|default:'' }}" placeholder="Buscar empresa ou palavra-chave...">
+            </div>
+
+            <label class="parcerias-filter">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <select name="ods" onchange="this.form.submit()">
+                    <option value="">ODS</option>
+                    <option value="4" {% if filtro_ods == '4' %}selected{% endif %}>ODS 4</option>
+                    <option value="8" {% if filtro_ods == '8' %}selected{% endif %}>ODS 8</option>
+                    <option value="11" {% if filtro_ods == '11' %}selected{% endif %}>ODS 11</option>
+                    <option value="14" {% if filtro_ods == '14' %}selected{% endif %}>ODS 14</option>
+                    <option value="16" {% if filtro_ods == '16' %}selected{% endif %}>ODS 16</option>
+                </select>
+            </label>
+
+            <label class="parcerias-filter">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <select name="setor" onchange="this.form.submit()">
+                    <option value="">Setor</option>
+                    <option value="Reciclagem" {% if filtro_setor == 'Reciclagem' %}selected{% endif %}>Reciclagem</option>
+                    <option value="Eventos" {% if filtro_setor == 'Eventos' %}selected{% endif %}>Eventos</option>
+                    <option value="Educação" {% if filtro_setor == 'Educação' %}selected{% endif %}>Educação</option>
+                    <option value="Saúde" {% if filtro_setor == 'Saúde' %}selected{% endif %}>Saúde</option>
+                </select>
+            </label>
+
+            <label class="parcerias-filter">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <select name="semestre" onchange="this.form.submit()">
+                    <option value="">Semestre</option>
+                    <option value="2026.1" {% if filtro_semestre == '2026.1' %}selected{% endif %}>2026.1</option>
+                    <option value="2025.2" {% if filtro_semestre == '2025.2' %}selected{% endif %}>2025.2</option>
+                    <option value="2025.1" {% if filtro_semestre == '2025.1' %}selected{% endif %}>2025.1</option>
+                </select>
+            </label>
+
+            <span class="parcerias-count">Exibindo {{ exibindo_inicio }} - {{ exibindo_fim }} de {{ total_demandas }} demandas</span>
+        </form>
+
+        <div class="parcerias-grid">
+            {% for demanda in demandas_cards %}
+                <article class="parceria-card">
+                    <h2>Empresa/ONG: {{ demanda.organizacao }}</h2>
+                    <span class="parceria-sector {% if demanda.setor == 'Eventos' %}parceria-sector--eventos{% endif %}">
+                        {{ demanda.setor|default:"Setor" }}
+                    </span>
+
+                    <div class="parceria-demand">
+                        <h3>{{ demanda.titulo }}</h3>
+                        <p>{{ demanda.descricao }}</p>
+                    </div>
+
+                    <div class="parceria-meta">
+                        <strong>Semestre {{ demanda.semestre }}</strong>
+                        {% if demanda.ods %}
+                            <span class="parceria-ods parceria-ods--{{ demanda.ods }}">ODS {{ demanda.ods }}</span>
+                        {% endif %}
+                        <a href="#" class="parceria-more">Ver Mais</a>
+                    </div>
+                </article>
+            {% endfor %}
+
+            {% for _ in empty_slots %}
+                <article class="parceria-card parceria-card--empty" aria-hidden="true"></article>
+            {% endfor %}
+        </div>
+
+        <footer class="parcerias-footer">
+            <span>Mostrando {{ exibindo_inicio }}-{{ exibindo_fim }} de {{ total_demandas }} resultados</span>
+
+            <nav class="parcerias-pagination" aria-label="Paginação">
+                {% if page_obj and page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if termo_pesquisa %}&q={{ termo_pesquisa }}{% endif %}{% if filtro_ods %}&ods={{ filtro_ods }}{% endif %}{% if filtro_setor %}&setor={{ filtro_setor }}{% endif %}{% if filtro_semestre %}&semestre={{ filtro_semestre }}{% endif %}">&lt;</a>
+                {% else %}
+                    <span>&lt;</span>
+                {% endif %}
+
+                <a class="active" href="?page=1">1</a>
+                <a href="?page=2">2</a>
+
+                {% if page_obj and page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if termo_pesquisa %}&q={{ termo_pesquisa }}{% endif %}{% if filtro_ods %}&ods={{ filtro_ods }}{% endif %}{% if filtro_setor %}&setor={{ filtro_setor }}{% endif %}{% if filtro_semestre %}&semestre={{ filtro_semestre }}{% endif %}">&gt;</a>
+                {% else %}
+                    <span>&gt;</span>
+                {% endif %}
+            </nav>
+        </footer>
+    </section>
+</div>
+{% endblock %}

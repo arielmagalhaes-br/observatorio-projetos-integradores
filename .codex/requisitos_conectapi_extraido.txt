@@ -1,0 +1,217 @@
+--- PAGE 1 ---
+CONECTA PI
+Separação de Funcionalidades e Requisitos por Perfil
+Observatório de Projetos Integradores — SENAC PE
+Este documento detalha a separação de funcionalidades e os requisitos funcionais específicos
+para cada um dos três perfis de usuário do sistema Conecta PI: Professor Orientador,
+Administrador (Coordenador) e Organização Parceira (ONGs/Empresas).
+PERFIL 1 — PROFESSOR ORIENTADOR
+1.1 Visão Geral do Perfil
+Docentes e coordenadores acadêmicos vinculados aos cursos de tecnologia do Senac
+Pernambuco. Possuem ampla visão pedagógica e capacidade técnica para validar sistemas,
+além de atuar como ponte entre alunos e o ecossistema de parceiros externos.
+1.2 Funcionalidades do Professor
+Funcionalidade Descrição
+Curadoria de Projetos Avaliação técnica e pedagógica dos projetos submetidos pelos
+alunos, com possibilidade de aprovação, devolução para
+ajustes ou rejeição.
+Atribuição de Feedback Inserção de notas, tags de classificação e comentários
+descritivos sobre cada projeto avaliado.
+Gestão do Matchmaking Organização do fluxo de conexão entre demandas da
+comunidade e projetos/grupos de alunos, por meio de um
+painel no estilo Kanban.
+Acesso à Fila de Curadoria Visualização dos projetos pendentes de avaliação, ordenados
+por data de submissão.
+Visualização da Vitrine Acesso ao catálogo público de projetos aprovados e
+publicados.
+Visualização do Radar de Consulta às demandas cadastradas por organizações
+Demandas parceiras para identificar oportunidades de conexão com
+projetos.
+
+--- PAGE 2 ---
+1.3 Requisitos Funcionais — Professor
+Código Nome do Requisito Descrição
+RF-PR-01 Login do Professor O sistema deve permitir que o professor se autentique
+com e-mail institucional e senha, diferenciando seu
+perfil do aluno e do administrador.
+RF-PR-02 Visualizar Dashboard O painel principal deve exibir: fila de projetos
+do Professor aguardando avaliação, número de projetos avaliados
+no período e acesso rápido ao matchmaking.
+RF-PR-03 Acessar Fila de O sistema deve exibir tabela com projetos pendentes
+Curadoria de avaliação, contendo: nome do projeto, autores,
+curso e data de submissão.
+RF-PR-04 Visualizar Detalhes do O professor deve conseguir abrir e visualizar todos os
+Projeto artefatos do projeto: documentação, link do repositório,
+link do protótipo, resumo e informações técnicas.
+RF-PR-05 Atribuir Nota ao Na tela de avaliação, o professor deve poder atribuir
+Projeto uma nota numérica ou conceito ao projeto avaliado.
+RF-PR-06 Adicionar e Editar Tags O sistema deve permitir que o professor insira ou edite
+tags de classificação temática e tecnológica no projeto.
+RF-PR-07 Inserir Feedback O professor deve poder escrever um feedback
+Descritivo qualitativo detalhado para o grupo, visível ao aluno
+após a decisão final.
+RF-PR-08 Aprovar e Publicar O professor deve poder aprovar o projeto, tornando-o
+Projeto visível na vitrine pública do Conecta PI.
+RF-PR-09 Devolver Projeto para O professor deve poder devolver o projeto ao aluno
+Ajustes com justificativa, impedindo sua publicação até que os
+ajustes sejam realizados e o projeto seja resubmetido.
+RF-PR-10 Gerenciar Painel de O sistema deve oferecer painel Kanban com etapas:
+Matchmaking Novas Demandas, Temas Validados, Em
+Desenvolvimento e Soluções Entregues, permitindo
+que o professor mova demandas entre etapas.
+RF-PR-11 Visualizar Vitrine de O professor deve ter acesso ao catálogo completo de
+Projetos projetos aprovados, com filtros por curso, semestre,
+ODS e tecnologia.
+RF-PR-12 Visualizar Radar de O professor deve poder consultar todas as demandas
+Demandas cadastradas pelas organizações parceiras para fins de
+orientação pedagógica e matchmaking.
+
+--- PAGE 3 ---
+PERFIL 2 — ADMINISTRADOR (COORDENADOR)
+2.1 Visão Geral do Perfil
+Coordenadores e gestores acadêmicos do curso de tecnologia do Senac PE. Responsáveis
+pela gestão global da plataforma, publicação final dos projetos, geração de relatórios
+gerenciais, controle de usuários e acompanhamento institucional dos Projetos Integradores.
+2.2 Funcionalidades do Administrador
+Funcionalidade Descrição
+Gestão de Usuários Cadastro, edição, ativação e desativação de contas de alunos,
+professores e parceiros na plataforma.
+Publicação Final de Projetos Validação e publicação definitiva dos projetos na vitrine
+pública, após avaliação do professor.
+Análise e Relatórios Geração de relatórios gerenciais sobre projetos, usuários,
+demandas atendidas e métricas de uso da plataforma.
+Dashboard de Métricas Visualização de indicadores gerenciais consolidados: total de
+projetos, status de demandas e distribuição por ODS.
+Gestão de Demandas da Gerenciamento do ciclo completo das demandas cadastradas
+Comunidade por parceiros, desde a abertura até a entrega de solução.
+Acesso Total à Vitrine e Radar Acesso irrestrito a todo o catálogo de projetos e ao painel de
+demandas da comunidade.
+Configurações da Plataforma Gerenciamento de parâmetros do sistema, categorias de ODS,
+cursos disponíveis e demais configurações globais.
+2.3 Requisitos Funcionais — Administrador
+Código Nome do Requisito Descrição
+RF-AD-01 Login Administrativo O sistema deve permitir a autenticação do perfil
+administrativo com credenciais de alto privilégio,
+distintas das demais contas.
+RF-AD-02 Visualizar Dashboard O painel principal deve exibir: total de projetos
+de Métricas publicados, status das demandas (abertas e atendidas)
+e gráfico de projetos por categoria ODS.
+
+--- PAGE 4 ---
+RF-AD-03 Gerenciar Usuários O administrador deve poder cadastrar, editar, ativar e
+desativar contas de alunos, professores e
+organizações parceiras, além de redefinir senhas.
+RF-AD-04 Publicar Projeto Após avaliação do professor, o administrador deve
+Definitivamente poder realizar a publicação final do projeto na vitrine
+pública, tornando-o acessível aos parceiros externos.
+RF-AD-05 Analisar Projetos O administrador deve ter acesso a uma listagem
+Submetidos completa de todos os projetos, em todos os status,
+com capacidade de filtro, ordenação e exportação.
+RF-AD-06 Gerar Relatórios O sistema deve permitir a geração de relatórios em
+formato exportável (PDF/Excel) contendo métricas de
+projetos por período, curso, ODS, status e parceiro
+atendido.
+RF-AD-07 Gerenciar Demandas O administrador deve poder visualizar, editar, arquivar
+da Comunidade e encerrar demandas cadastradas pelos parceiros,
+mantendo o controle do ciclo de vida de cada
+solicitação.
+RF-AD-08 Acessar Fila de O administrador deve ter acesso à mesma fila de
+Curadoria curadoria do professor, podendo acompanhar o
+andamento das avaliações.
+RF-AD-09 Visualizar Vitrine O administrador deve acessar o catálogo completo de
+Completa projetos, incluindo projetos em rascunho, em avaliação
+e publicados.
+RF-AD-10 Visualizar Radar de O administrador deve ter acesso irrestrito ao radar de
+Demandas Completo demandas, com todos os campos e histórico de
+interações.
+RF-AD-11 Configurar Parâmetros O administrador deve poder gerenciar as categorias de
+da Plataforma ODS, cursos disponíveis, períodos letivos e outros
+parâmetros de configuração global do sistema.
+RF-AD-12 Auditar Atividades do O sistema deve manter e exibir ao administrador um
+Sistema log de atividades relevantes (publicações, avaliações,
+cadastros de demandas) para fins de auditoria.
+
+--- PAGE 5 ---
+PERFIL 3 — ORGANIZAÇÃO PARCEIRA (ONGs e EMPRESAS)
+3.1 Visão Geral do Perfil
+Empreendedores locais, líderes comunitários e gestores de ONGs e pequenas empresas.
+Possuem conhecimento prático de seus processos de negócios, mas frequentemente com
+baixo conhecimento técnico avançado em TI. Buscam soluções acessíveis para promover
+transformação digital e resolver problemas operacionais.
+3.2 Funcionalidades das Organizações Parceiras
+Funcionalidade Descrição
+Navegação na Vitrine de Consulta ao catálogo público de soluções desenvolvidas pelos
+Projetos alunos, com busca e filtros acessíveis.
+Cadastro de Demandas Registro das dores e necessidades operacionais da
+Operacionais organização, para possível conexão com projetos ou grupos de
+alunos.
+Solicitação de Contato Possibilidade de solicitar contato com os desenvolvedores de
+um projeto de interesse.
+Acompanhamento de Visualização do status das demandas cadastradas e do
+Demandas andamento da conexão com projetos/grupos.
+Visualização de Detalhes dos Acesso simplificado às informações dos projetos publicados:
+Projetos resumo, impacto social (ODS), tecnologias e links de acesso.
+3.3 Requisitos Funcionais — Organização Parceira
+Código Nome do Requisito Descrição
+RF-PC-01 Cadastro de O sistema deve permitir que uma organização (ONG
+Organização Parceira ou empresa) crie uma conta informando: nome da
+organização, tipo (ONG/Empresa), setor de atuação,
+responsável e e-mail de contato.
+RF-PC-02 Login da Organização O sistema deve permitir autenticação da organização
+Parceira com e-mail e senha, direcionando-a para seu painel
+exclusivo.
+RF-PC-03 Visualizar Vitrine de A organização deve poder navegar pela vitrine pública
+Projetos de projetos aprovados, com linguagem acessível,
+
+--- PAGE 6 ---
+visualizando título, resumo, ODS associado,
+tecnologias e link do protótipo.
+RF-PC-04 Buscar e Filtrar O sistema deve oferecer mecanismo de busca com
+Projetos filtros por: área de atuação, ODS, tecnologia utilizada e
+semestre, para facilitar a localização de soluções
+relevantes.
+RF-PC-05 Visualizar Detalhes do A organização deve poder abrir um projeto e visualizar
+Projeto suas informações completas: título, autores, resumo,
+tecnologias, ODS, link do repositório e link do
+protótipo.
+RF-PC-06 Solicitar Contato com O sistema deve permitir que a organização envie uma
+Desenvolvedores solicitação de contato vinculada a um projeto de
+interesse, notificando o professor responsável.
+RF-PC-07 Cadastrar Demanda A organização deve poder registrar uma demanda
+Operacional descrevendo: nome da organização, problema
+operacional, setor relacionado, ODS e semestre
+desejado para atendimento.
+RF-PC-08 Gerenciar Suas A organização deve poder visualizar, editar e
+Demandas acompanhar o status de todas as demandas que
+cadastrou na plataforma.
+RF-PC-09 Acompanhar Status da O sistema deve exibir para a organização o status
+Demanda atual de sua demanda: Nova, Tema Validado, Em
+Desenvolvimento ou Solução Entregue.
+RF-PC-10 Receber Notificações O sistema deve notificar a organização por e-mail
+quando houver atualização de status em suas
+demandas ou quando um professor responder à
+solicitação de contato.
+
+--- PAGE 7 ---
+QUADRO COMPARATIVO — FUNCIONALIDADES POR PERFIL
+O quadro a seguir resume as principais funcionalidades de cada perfil, facilitando a
+visualização das responsabilidades e permissões de acesso no sistema Conecta PI.
+Funcionalidade Professor Administrador Parceria
+Login e Autenticação ✔ ✔ ✔
+Dashboard personalizado ✔ ✔ –
+Avaliar / Dar feedback em ✔ ✔ (supervisão) –
+projetos
+Aprovar e publicar projetos ✔ ✔ (definitivo) –
+Gestão de usuários – ✔ –
+Geração de relatórios – ✔ –
+Configurações da plataforma – ✔ –
+Painel de Matchmaking ✔ ✔ –
+(Kanban)
+Visualizar Vitrine de Projetos ✔ ✔ ✔
+Visualizar Radar de Demandas ✔ ✔ (total) –
+Cadastrar demanda – – ✔
+operacional
+Acompanhar status da – ✔ (gestão) ✔
+demanda
+Solicitar contato com dev. – – ✔
+Receber notificações ✔ (avaliação) ✔ (todas) ✔ (demanda)

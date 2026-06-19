@@ -1,0 +1,8 @@
+{% comment %}
+Badge de tecnologia com classes dinâmicas:
+- .badge-tech (base)
+- .badge-{{ tech.nome|slugify }} (variação por tecnologia)
+{% endcomment %}
+
+<span class="badge-tech badge-{{ tech.nome|slugify }}">{{ tech.nome|upper }}</span>
+

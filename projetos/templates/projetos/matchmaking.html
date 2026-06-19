@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Matchmaking | Conecta PI{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/matchmaking.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="matchmaking-page">
+    <header class="matchmaking-header">
+        <div>
+            <h1>Matchmaking</h1>
+            <p>Conecte o ecossistema de empresas e ONGs a projetos dos estudantes</p>
+        </div>
+
+        <form method="GET" action="{% url 'matchmaking' %}" class="matchmaking-filters">
+            <label class="matchmaking-filter">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <select name="curso" onchange="this.form.submit()">
+                    <option value="">Curso</option>
+                    <option value="ADS" {% if filtro_curso == 'ADS' %}selected{% endif %}>ADS</option>
+                    <option value="Sistemas" {% if filtro_curso == 'Sistemas' %}selected{% endif %}>Sistemas</option>
+                    <option value="Design" {% if filtro_curso == 'Design' %}selected{% endif %}>Design</option>
+                </select>
+            </label>
+
+            <label class="matchmaking-filter matchmaking-filter--wide">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <select name="semestre" onchange="this.form.submit()">
+                    <option value="">Semestre/Ano</option>
+                    <option value="2026.1" {% if filtro_semestre == '2026.1' %}selected{% endif %}>2026.1</option>
+                    <option value="2025.2" {% if filtro_semestre == '2025.2' %}selected{% endif %}>2025.2</option>
+                    <option value="2025.1" {% if filtro_semestre == '2025.1' %}selected{% endif %}>2025.1</option>
+                </select>
+            </label>
+        </form>
+    </header>
+
+    <section class="matchmaking-board" aria-label="Kanban de matchmaking">
+        <!-- Coluna 1: Novas Demandas -->
+        <article class="matchmaking-column">
+            <h2>Novas Demandas ({{ novas_demandas.count }})</h2>
+            <div class="matchmaking-column__cards">
+                {% for demanda in novas_demandas %}
+                    <div class="matchmaking-card">
+                        <h3>{{ demanda.titulo }}</h3>
+                        <div class="matchmaking-card__tags">
+                            {% if demanda.ods.all %}
+                                {% for o in demanda.ods.all %}
+                                    <span class="matchmaking-tag matchmaking-tag--ods-{{ o.numero }}">ODS {{ o.numero }}</span>
+                                {% endfor %}
+                            {% elif demanda.ods_relacionado %}
+                                <span class="matchmaking-tag matchmaking-tag--ods-{{ demanda.ods_relacionado.numero }}">ODS {{ demanda.ods_relacionado.numero }}</span>
+                            {% endif %}
+                            <span class="matchmaking-tag matchmaking-tag--organizacao">{{ demanda.parceiro_display }}</span>
+                        </div>
+                        <p>Semestre {{ demanda.semestre|default:"2026.1" }}</p>
+                    </div>
+                {% empty %}
+                    <div class="matchmaking-empty">Nenhuma demanda nesta etapa.</div>
+                {% endfor %}
+            </div>
+        </article>
+
+        <!-- Coluna 2: Temas Validados -->
+        <article class="matchmaking-column">
+            <h2>Temas Validados ({{ temas_validados.count }})</h2>
+            <div class="matchmaking-column__cards">
+                {% for demanda in temas_validados %}
+                    <div class="matchmaking-card">
+                        <h3>{{ demanda.titulo }}</h3>
+                        <div class="matchmaking-card__tags">
+                            {% if demanda.ods.all %}
+                                {% for o in demanda.ods.all %}
+                                    <span class="matchmaking-tag matchmaking-tag--ods-{{ o.numero }}">ODS {{ o.numero }}</span>
+                                {% endfor %}
+                            {% elif demanda.ods_relacionado %}
+                                <span class="matchmaking-tag matchmaking-tag--ods-{{ demanda.ods_relacionado.numero }}">ODS {{ demanda.ods_relacionado.numero }}</span>
+                            {% endif %}
+                            <span class="matchmaking-tag matchmaking-tag--organizacao">{{ demanda.parceiro_display }}</span>
+                        </div>
+                        <p>Semestre {{ demanda.semestre|default:"2026.1" }}</p>
+                    </div>
+                {% empty %}
+                    <div class="matchmaking-empty">Nenhuma demanda nesta etapa.</div>
+                {% endfor %}
+            </div>
+        </article>
+
+        <!-- Coluna 3: Em Desenvolvimento -->
+        <article class="matchmaking-column">
+            <h2>Em Desenvolvimento ({{ em_desenvolvimento.count }})</h2>
+            <div class="matchmaking-column__cards">
+                {% for demanda in em_desenvolvimento %}
+                    <div class="matchmaking-card">
+                        <h3>{{ demanda.titulo }}</h3>
+                        <div class="matchmaking-card__tags">
+                            {% if demanda.ods.all %}
+                                {% for o in demanda.ods.all %}
+                                    <span class="matchmaking-tag matchmaking-tag--ods-{{ o.numero }}">ODS {{ o.numero }}</span>
+                                {% endfor %}
+                            {% elif demanda.ods_relacionado %}
+                                <span class="matchmaking-tag matchmaking-tag--ods-{{ demanda.ods_relacionado.numero }}">ODS {{ demanda.ods_relacionado.numero }}</span>
+                            {% endif %}
+                            <span class="matchmaking-tag matchmaking-tag--organizacao">{{ demanda.parceiro_display }}</span>
+                        </div>
+                        <p>Semestre {{ demanda.semestre|default:"2026.1" }}</p>
+                    </div>
+                {% empty %}
+                    <div class="matchmaking-empty">Nenhuma demanda nesta etapa.</div>
+                {% endfor %}
+            </div>
+        </article>
+
+        <!-- Coluna 4: Soluções Entregues -->
+        <article class="matchmaking-column">
+            <h2>Soluções Entregues ({{ solucoes_entregues.count }})</h2>
+            <div class="matchmaking-column__cards">
+                {% for demanda in solucoes_entregues %}
+                    <div class="matchmaking-card">
+                        <h3>{{ demanda.titulo }}</h3>
+                        <div class="matchmaking-card__tags">
+                            {% if demanda.ods.all %}
+                                {% for o in demanda.ods.all %}
+                                    <span class="matchmaking-tag matchmaking-tag--ods-{{ o.numero }}">ODS {{ o.numero }}</span>
+                                {% endfor %}
+                            {% elif demanda.ods_relacionado %}
+                                <span class="matchmaking-tag matchmaking-tag--ods-{{ demanda.ods_relacionado.numero }}">ODS {{ demanda.ods_relacionado.numero }}</span>
+                            {% endif %}
+                            <span class="matchmaking-tag matchmaking-tag--organizacao">{{ demanda.parceiro_display }}</span>
+                        </div>
+                        <p>Semestre {{ demanda.semestre|default:"2026.1" }}</p>
+                    </div>
+                {% empty %}
+                    <div class="matchmaking-empty">Nenhuma demanda nesta etapa.</div>
+                {% endfor %}
+            </div>
+        </article>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+/* ================= CONFIGURAÇÃO DO CORPO ================= */
+body {
+    background-color: var(--color-background, #f3f4f6);
+    font-family: var(--font-body, sans-serif);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl, 32px) var(--spacing-md, 16px);
+}
+
+.gateway-container {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+
+/* ================= CABEÇALHO DA TELA ================= */
+.gateway-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.gateway-logo {
+    max-width: 220px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.gateway-title {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-text-main, #111827);
+    margin: 0;
+}
+
+.gateway-decorator {
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-warning, #f59e0b);
+    border-radius: 2px;
+    margin-top: 4px;
+}
+
+/* ================= GRID DE CARTÕES ================= */
+.gateway-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .gateway-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ================= ESTILO DE CARTÃO PREMIUM ================= */
+.gateway-card {
+    background-color: var(--color-surface, #ffffff);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 16px;
+    padding: 40px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.02), 0 4px 6px -2px rgba(0,0,0,0.01);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease;
+    text-decoration: none;
+}
+
+.gateway-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    border-color: var(--color-primary, #d97706);
+}
+
+/* Círculo do Ícone */
+.gateway-card__icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease;
+}
+
+.gateway-card:hover .gateway-card__icon {
+    transform: scale(1.08);
+}
+
+/* Colorização Específica por Perfil */
+.gateway-card__icon--aluno {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.gateway-card__icon--professor {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.gateway-card__icon--admin {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.gateway-card__title {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text-main, #111827);
+    margin: 0;
+}
+
+.gateway-card__subtext {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #6b7280);
+    margin: 0;
+    line-height: 1.4;
+}

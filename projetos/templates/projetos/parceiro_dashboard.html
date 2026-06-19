@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Painel da Organização Parceira | Conecta PI{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+
+<div class="dashboard">
+    <header class="dashboard__header">
+        <h1 class="dashboard__title">Painel da Organização Parceira</h1>
+        <p class="dashboard__subtitle">Suas demandas cadastradas</p>
+    </header>
+
+    <section>
+        <ul>
+            {% for demanda in minhas_demandas %}
+                <li>{{ demanda.titulo }} — {{ demanda.get_status_display }} — {{ demanda.data_criacao }}</li>
+            {% empty %}
+                <li>Você ainda não cadastrou demandas.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

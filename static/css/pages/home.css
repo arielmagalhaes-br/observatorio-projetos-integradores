@@ -88,7 +88,7 @@
 }
 
 .btn--primary {
-    background-color: #0059B2;
+    background-color: var(--color-primary);
     color: #ffffff;
     border: none;
     padding: 8px 16px;
@@ -97,6 +97,11 @@
     font-family: var(--font-body, sans-serif);
     transition: background-color 0.2s ease;
 }
+
+.btn--primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
 
 /* ================= GRID DE CONTEÚDO ================= */
 .dashboard__content {
@@ -144,7 +149,7 @@
 .profile-card__course {
     font-family: var(--font-body, sans-serif);
     font-size: 0.9rem;
-    color: #2563eb;
+    color: var(--color-primary);
     font-weight: 600;
     margin: 0 0 4px 0;
 }
@@ -310,9 +315,9 @@
 }
 
 .pagination__btn--active {
-    background-color: #2563eb;
+    background-color: var(--color-primary);
     color: #ffffff;
-    border-color: #2563eb;
+    border-color: var(--color-primary);
 }
 
 .pagination__btn[disabled] {

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Perfil | Conecta PI{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/pages/perfil.css' %}">
+
+<div class="perfil-wrapper">
+    
+    <header class="dashboard__header">
+        <h1 class="dashboard__title">Meu Perfil</h1>
+        <p class="dashboard__subtitle">Gerencie suas informações pessoais e visualize suas estatísticas</p>
+        <span class="dashboard__decorator"></span>
+    </header>
+
+    <section class="perfil-card">
+        <h2 class="card-titulo">Informações de Contacto</h2>
+        
+        <div class="contato-grid">
+            <div class="avatar-container">
+                {% if request.user.perfil.foto %}
+                    <img src="{{ request.user.perfil.foto.url }}" alt="Fotografia de Perfil" class="avatar-img" style="display: block;">
+                {% else %}
+                    <div class="avatar-img placeholder-svg">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="dados-grid">
+                <div class="dado-item">
+                    <label>Utilizador:</label>
+                    <div class="dado-box">{{ request.user.get_full_name|default:request.user.username }}</div>
+                </div>
+                <div class="dado-item">
+                    <label>LinkedIn:</label>
+                    <div class="dado-box">{{ request.user.perfil.LinkedIn|default:"Não informado" }}</div>
+                </div>
+                
+                {% if request.user.perfil.tipo_usuario == 'PARCEIRO' %}
+                    <div class="dado-item">
+                        <label>Organização:</label>
+                        <div class="dado-box">{{ request.user.perfil.nome_organizacao|default:"Não informado" }}</div>
+                    </div>
+                    <div class="dado-item">
+                        <label>Setor de Atuação:</label>
+                        <div class="dado-box">{{ request.user.perfil.setor_atuacao|default:"Não informado" }}</div>
+                    </div>
+                {% else %}
+                    <div class="dado-item">
+                        <label>Curso:</label>
+                        <div class="dado-box">{{ request.user.perfil.curso|default:"Não informado" }}</div>
+                    </div>
+                    <div class="dado-item">
+                        <label>GitHub:</label>
+                        <div class="dado-box">{{ request.user.perfil.github|default:"Não informado" }}</div>
+                    </div>
+                {% endif %}
+
+                <div class="dado-item">
+                    <label>E-mail:</label>
+                    <div class="dado-box">{{ request.user.email|default:"Não informado" }}</div>
+                </div>
+                
+                {% if request.user.perfil.tipo_usuario != 'PARCEIRO' %}
+                    <div class="dado-item">
+                        <label>Instagram:</label>
+                        <div class="dado-box">{{ request.user.perfil.instagram|default:"Não informado" }}</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="perfil-card">
+        <h2 class="card-titulo">Biografia / Trajetória</h2>
+        <div class="dado-box bio-box">
+            {% if request.user.perfil.biografia %}
+                <p class="bio-texto">{{ request.user.perfil.biografia }}</p>
+            {% else %}
+                <p class="bio-dica">Nenhuma informação sobre a trajetória foi escrita ainda.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <div class="perfil-acoes">
+        <a href="{% url 'editar_perfil' %}" class="btn-editar-perfil" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Editar Perfil
+        </a>
+    </div>
+
+
+
+</div>
+{% endblock %}

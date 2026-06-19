@@ -1,0 +1,256 @@
+/* ================= TIPOGRAFIA E CONTAINER ================= */
+.perfil-wrapper, .perfil-wrapper * {
+    font-family: var(--font-body, sans-serif) !important;
+}
+
+.perfil-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ================= CABEÇALHO ================= */
+.dashboard__header {
+    position: relative;
+    padding-bottom: var(--spacing-sm, 16px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.dashboard__title {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 1.75rem;
+    color: var(--color-text-main, #111827);
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.dashboard__subtitle {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.dashboard__decorator {
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    margin-top: 8px;
+}
+
+/* ================= CARDS BRANCOS ================= */
+.perfil-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 28px 36px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.03), 0 4px 6px -2px rgba(0,0,0,0.01);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.perfil-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+.card-titulo {
+    font-size: 1.15rem;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.titulo-azul {
+    color: #1e3a8a;
+}
+
+/* ================= GRID DE CONTATO ================= */
+.contato-grid {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+}
+
+.avatar-container {
+    flex-shrink: 0;
+}
+
+.avatar-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    color: #cbd5e1;
+    transition: transform 0.3s ease;
+}
+
+.avatar-img:hover {
+    transform: scale(1.04) rotate(2deg);
+}
+
+.dado-item {
+    min-width: 0; 
+}
+
+.dado-item label {
+    display: block;
+    color: #1e3a8a;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dados-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+    width: 100%;
+}
+
+/* As caixinhas cinzas com o dado */
+.dado-box {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: #1f2937;
+    font-size: 0.95rem;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.dado-box:hover {
+    background-color: #ffffff;
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 6px -1px rgba(236, 110, 24, 0.08);
+}
+
+/* ================= BIOGRAFIA ================= */
+.bio-box {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    min-height: 100px;
+}
+
+.bio-dica {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.bio-texto {
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ================= BOTÃO EDITAR ================= */
+.perfil-acoes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-editar-perfil {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(236, 110, 24, 0.2);
+    transition: all 0.2s;
+}
+
+.btn-editar-perfil:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+}
+
+/* ================= STATUS PROJETOS ================= */
+.dashboard-cards-perfil {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.status-card-inner {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.status-card-inner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    border-color: rgba(236, 110, 24, 0.2);
+}
+
+.status-card-inner .card-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.status-card-inner .titulo {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.status-card-inner .numero {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+/* Reaproveitando os ícones coloridos */
+.icone { 
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icone-azul { background-color: #dbeafe; color: #1e3a8a; }
+.icone-verde { background-color: #d1fae5; color: #065f46; }
+.icone-amarelo { background-color: #fef3c7; color: #92400e; }
+.icone-vermelho { background-color: #fee2e2; color: #991b1b; }

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login | Conecta PI{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-body">
+
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="{% static 'css/img/logo.png' %}" alt="Logo Conecta PI">
+        </div>
+
+        <div class="login-card">
+            <h2 class="login-title">ACESSE SUA CONTA</h2>
+
+            <form action="{% url 'login' %}" method="POST" class="login-form">
+
+                {% csrf_token %}
+
+                {% if messages %}
+                    <div style="color: #ef4444; background-color: #fee2e2; padding: 10px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 16px; text-align: center; font-weight: 600;">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="input-group">
+                    <label for="email">USUÁRIO OU E-MAIL CADASTRADO</label>
+                    <input type="text" id="email" name="username" placeholder="Seu usuário" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">SENHA</label>
+                    <input type="password" id="senha" name="password" placeholder="********" required>
+                </div>
+                
+                <button type="submit" class="btn-entrar">ENTRAR</button>
+            </form>
+
+            <div class="login-links">
+                <a href="#">Esqueci meu e-mail ou senha</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

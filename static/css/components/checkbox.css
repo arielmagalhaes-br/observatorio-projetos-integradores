@@ -15,20 +15,17 @@
 
 /* O Quadrado Customizado */
 .checkbox__input {
-    /* Desliga o visual feio do padrão do Chorme */
     appearance: none;
     -webkit-appearance: none;
-    
-    /* Desenha novo quadrado */
+
     width: 20px;
     height: 20px;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--color-border);
     border-radius: 4px;
-    background-color: #ffffff;
+    background-color: var(--color-surface);
     cursor: pointer;
-    margin: 0; 
+    margin: 0;
 
-    /* Prepara o flexbox para centralizar o "V" branco de check depois */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,9 +37,9 @@
     content: '';
     width: 5px;
     height: 10px;
-    border: solid #ffffff;
+    border: solid var(--color-text-inverse);
     border-width: 0 2px 2px 0;
-    transform: rotate(45deg); /* Gira para formar o "V" */
+    transform: rotate(45deg);
     display: none;
 }
 

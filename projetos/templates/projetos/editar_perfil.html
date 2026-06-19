@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Perfil | Conecta PI{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/pages/novo_projeto.css' %}">
+
+<div class="perfil-wrapper">
+    <header class="form-header">
+        <h1 class="form-header__title">Editar Perfil</h1>
+        <p class="form-header__subtitle">Atualize suas informações de contato e biografia</p>
+        <span class="form-header__decorator"></span>
+    </header>
+
+    <form action="{% url 'editar_perfil' %}" method="POST" enctype="multipart/form-data" class="project-form">
+        {% csrf_token %}
+
+        <div class="form-card">
+            <h2 class="form-card__title">Informações do Perfil</h2>
+            
+            <div class="form-card__grid">
+                <div class="form-group form-group--full">
+                    <label class="form-label">Foto de Perfil:</label>
+                    <input type="file" name="foto" class="form-input" accept="image/*">
+                </div>
+
+                <div class="form-group form-group--full">
+                    <label class="form-label">Biografia:</label>
+                    <textarea name="biografia" class="form-input form-textarea" rows="4">{{ request.user.perfil.biografia|default:'' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">LinkedIn:</label>
+                    <input type="url" name="LinkedIn" class="form-input" value="{{ request.user.perfil.LinkedIn|default:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">GitHub:</label>
+                    <input type="url" name="github" class="form-input" value="{{ request.user.perfil.github|default:'' }}">
+                </div>
+            </div>
+        </div>
+
+        <footer class="form-actions">
+            <a href="{% url 'perfil' %}" class="btn__form--save" style="text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center;">Cancelar</a>
+            <button type="submit" class="btn__form--share">Salvar Alterações</button>
+        </footer>
+    </form>
+</div>
+{% endblock %}

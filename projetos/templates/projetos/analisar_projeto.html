@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Análise do Projeto | Conecta PI{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/analisar_projeto.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="POST" class="analise-page">
+    {% csrf_token %}
+
+    <header class="analise-header">
+        <div class="analise-header__copy">
+            <h1>Projeto {{ projeto.titulo|default:"Sem Título" }}</h1>
+            <p>Projeto desenvolvido por turma de ADS no Semestre {{ projeto.semestre|default:"não informado" }}</p>
+        </div>
+
+        <aside class="analise-status">
+            <span>STATUS</span>
+            <strong class="analise-status__badge analise-status__badge--{{ projeto.status|lower }}">
+                {% if projeto.status == 'AJUSTES' %}AJUSTES{% else %}{{ projeto.get_status_display|upper }}{% endif %}
+            </strong>
+        </aside>
+    </header>
+
+    <section class="analise-card analise-card--gallery">
+        <h2>Galeria</h2>
+
+        <div class="analise-gallery">
+            <button class="analise-gallery__arrow" type="button" aria-label="Imagem anterior">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <div class="analise-gallery__track">
+                {% for img in imagens|slice:":3" %}
+                    <img src="{{ img.imagem.url }}" alt="Imagem do projeto {{ projeto.titulo }}">
+                {% empty %}
+                    <div class="analise-gallery__placeholder">
+                        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <span>Sem imagens cadastradas</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="analise-gallery__arrow" type="button" aria-label="Próxima imagem">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <section class="analise-card analise-row">
+        <h2>Tecnologias:</h2>
+        <div class="analise-tags">
+            {% for tecnologia in projeto.tecnologias.all %}
+                <span class="analise-tag analise-tag--tech analise-tag--{{ tecnologia.nome|slugify }}">{{ tecnologia.nome|upper }}</span>
+            {% empty %}
+                <span class="analise-empty">Nenhuma tecnologia informada.</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="analise-card analise-row">
+        <h2>ODS:</h2>
+        <div class="analise-tags">
+            {% for ods in projeto.ods.all %}
+                <span class="analise-tag analise-tag--ods analise-tag--ods-{{ ods.numero }}">ODS {{ ods.numero }}</span>
+            {% empty %}
+                <span class="analise-empty">Nenhum ODS vinculado.</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="analise-card">
+        <h2>Links e Documentação:</h2>
+        <div class="analise-links">
+            {% if projeto.Link_prototipo %}
+                <a href="{{ projeto.Link_prototipo }}" target="_blank" rel="noopener" class="analise-link analise-link--prototype">Protótipo</a>
+            {% else %}
+                <span class="analise-link analise-link--prototype is-disabled">Protótipo</span>
+            {% endif %}
+
+            {% if projeto.documentacao_pdf %}
+                <a href="{{ projeto.documentacao_pdf.url }}" target="_blank" rel="noopener" class="analise-link analise-link--store">Documentação</a>
+            {% else %}
+                <span class="analise-link analise-link--store is-disabled">App Store</span>
+            {% endif %}
+
+            {% if projeto.Link_repositorio %}
+                <a href="{{ projeto.Link_repositorio }}" target="_blank" rel="noopener" class="analise-link analise-link--repo">Repositório</a>
+            {% else %}
+                <span class="analise-link analise-link--repo is-disabled">Repositório</span>
+            {% endif %}
+
+            {% if projeto.link_demo %}
+                <a href="{{ projeto.link_demo }}" target="_blank" rel="noopener" class="analise-link analise-link--demo">Demo</a>
+            {% else %}
+                <span class="analise-link analise-link--demo is-disabled">Demo</span>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="analise-card analise-card--team">
+        <h2>Equipe:</h2>
+        <ul class="analise-team">
+            {% for autor in projeto.autores.all %}
+                <li>{{ autor.usuario.get_full_name|default:autor.usuario.username }} - {{ autor.usuario.email|default:"e-mail não informado" }}</li>
+            {% empty %}
+                <li>Nenhum autor formalmente vinculado.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="analise-card analise-card--text">
+        <h2>Inspiração</h2>
+        <p>{{ projeto.inspiracao|default:"Como surgiu a ideia. Qual é o problema real que decidimos resolver." }}</p>
+    </section>
+
+    <section class="analise-card analise-card--text">
+        <h2>O que ele faz?</h2>
+        <p>{{ projeto.descricao|default:"Explicação detalhada e objetiva das principais funcionalidades do sistema." }}</p>
+    </section>
+
+    <section class="analise-card analise-card--feedback">
+        <label for="feedback_professor">Feedback:</label>
+        <textarea id="feedback_professor" name="feedback_professor" rows="2" placeholder="Escreva um feedback de orientação à equipe quanto ao projeto.">{{ projeto.feedback_professor|default:'' }}</textarea>
+    </section>
+
+    <footer class="analise-actions">
+        <button type="submit" name="acao" value="ajustes" class="analise-action analise-action--secondary">
+            Devolver para ajustes
+        </button>
+        <button type="submit" name="acao" value="aprovar" class="analise-action analise-action--primary">
+            Aprovar
+        </button>
+    </footer>
+</form>
+{% endblock %}

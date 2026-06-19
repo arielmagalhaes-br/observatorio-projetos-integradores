@@ -1,0 +1,239 @@
+.matchmaking-page {
+    width: min(1010px, 100%);
+    margin: 0 auto;
+    padding: 34px 0 30px;
+    font-family: var(--font-body, sans-serif);
+}
+
+.matchmaking-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 36px;
+}
+
+.matchmaking-header h1 {
+    margin: 0 0 8px;
+    color: var(--color-secondary);
+    font-size: 2.35rem;
+    line-height: 1.05;
+    font-weight: 900;
+}
+
+.matchmaking-header p {
+    margin: 0;
+    color: #7f8499;
+    font-size: 1.02rem;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+.matchmaking-filters {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+.matchmaking-filter {
+    height: 34px;
+    min-width: 92px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+}
+
+.matchmaking-filter--wide {
+    min-width: 156px;
+}
+
+.matchmaking-filter select {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    appearance: none;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.matchmaking-filter option {
+    color: #111827;
+}
+
+.matchmaking-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.matchmaking-column {
+    min-height: 802px;
+    padding: 18px 8px;
+    background-color: #ffffff;
+    border: 1px solid #6f747d;
+    border-radius: 16px;
+    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.24);
+}
+
+.matchmaking-column h2 {
+    margin: 0 0 14px;
+    color: var(--color-secondary);
+    font-size: 1.08rem;
+    line-height: 1.05;
+    text-align: center;
+    font-weight: 900;
+}
+
+.matchmaking-column__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.matchmaking-card {
+    min-height: 142px;
+    padding: 14px 18px 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f5f8;
+    border: 1px solid #c8ccd4;
+    border-radius: 16px;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.23);
+}
+
+.matchmaking-card h3 {
+    margin: 0 0 20px;
+    color: #000000;
+    font-size: 0.72rem;
+    line-height: 1.1;
+    text-align: center;
+    font-weight: 900;
+}
+
+.matchmaking-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.matchmaking-tag {
+    min-height: 28px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: #000000;
+    font-size: 0.62rem;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.matchmaking-tag--ods-14 {
+    background-color: #0072ce;
+}
+
+.matchmaking-tag--ods-4 {
+    background-color: #d00000;
+}
+
+.matchmaking-tag--ods-8 {
+    background-color: #c4004b;
+}
+
+.matchmaking-tag--ods-9 {
+    background-color: var(--color-primary);
+}
+
+.matchmaking-tag--ods-16,
+.matchmaking-tag--empresa {
+    background-color: #8aa6ce;
+}
+
+.matchmaking-tag--ods-11 {
+    background-color: #f59e0b;
+}
+
+.matchmaking-tag--organizacao-yellow {
+    background-color: #ffd166;
+}
+
+.matchmaking-tag--organizacao,
+.matchmaking-tag--organizacao-green {
+    background-color: #31c95a;
+}
+
+.matchmaking-tag--instituicao {
+    background-color: var(--color-primary);
+    min-width: 96px;
+}
+
+.matchmaking-card p {
+    margin: auto 0 0;
+    padding-top: 14px;
+    color: #555a64;
+    font-size: 0.64rem;
+    line-height: 1;
+    font-style: italic !important;
+    font-weight: 500;
+}
+
+.matchmaking-empty {
+    padding: 18px 12px;
+    color: #8a91a5;
+    font-size: 0.78rem;
+    line-height: 1.3;
+    text-align: center;
+    font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+    .matchmaking-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .matchmaking-column {
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 760px) {
+    .matchmaking-page {
+        padding-top: 12px;
+    }
+
+    .matchmaking-header {
+        flex-direction: column;
+        margin-bottom: 22px;
+    }
+
+    .matchmaking-filters {
+        width: 100%;
+        gap: 12px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .matchmaking-filter {
+        width: 100%;
+    }
+
+    .matchmaking-board {
+        grid-template-columns: 1fr;
+    }
+}

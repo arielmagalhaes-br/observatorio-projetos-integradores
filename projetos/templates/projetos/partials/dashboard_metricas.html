@@ -1,0 +1,126 @@
+<div class="figma-dashboard">
+    <header class="figma-dashboard__header">
+        <div>
+            <h1 class="figma-dashboard__title">Dashboard</h1>
+            <p class="figma-dashboard__subtitle">Acompanhe suas métricas de desempenho</p>
+        </div>
+
+        <div class="figma-dashboard__turma">
+            <button class="figma-dashboard__turma-button" id="btn-turma" type="button">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <span>{% if turma_selecionada %}{{ turma_selecionada.nome }}{% else %}Turma{% endif %}</span>
+            </button>
+
+            <div class="figma-dashboard__turma-menu" id="dropdown-turma-content">
+                <a href="?">Todas as Turmas</a>
+                {% for turma in turmas %}
+                    <a href="?turma={{ turma.id }}">{{ turma.nome }} ({{ turma.semestre }})</a>
+                {% endfor %}
+            </div>
+        </div>
+    </header>
+
+    <section class="figma-dashboard__cards" aria-label="Resumo de métricas">
+        <article class="figma-metric-card">
+            <strong class="figma-metric-card__number">{{ demandas_abertas|default:0 }}</strong>
+            <div>
+                <h2 class="figma-metric-card__title">Demandas Abertas</h2>
+                <p class="figma-metric-card__subtitle">+{{ demandas_semestre|default:0 }} neste semestre letivo</p>
+            </div>
+            <span class="figma-metric-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="8"></circle>
+                    <polyline points="12 7 12 12 15 14"></polyline>
+                </svg>
+            </span>
+        </article>
+
+        <article class="figma-metric-card">
+            <strong class="figma-metric-card__number">{{ projetos_publicados|default:0 }}</strong>
+            <div>
+                <h2 class="figma-metric-card__title">Projetos Publicados</h2>
+                <p class="figma-metric-card__subtitle">+{{ projetos_publicados_semestre|default:0 }} neste semestre letivo</p>
+            </div>
+            <span class="figma-metric-card__icon figma-metric-card__icon--success" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </span>
+        </article>
+
+        <article class="figma-metric-card">
+            <strong class="figma-metric-card__number">{{ projetos_pendentes|default:0 }}</strong>
+            <div>
+                <h2 class="figma-metric-card__title">Projetos Pendentes</h2>
+            </div>
+            <span class="figma-metric-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="8"></circle>
+                    <polyline points="12 7 12 12 15 14"></polyline>
+                </svg>
+            </span>
+        </article>
+
+        <article class="figma-metric-card">
+            <strong class="figma-metric-card__number">{{ projetos_em_analise|default:0 }}</strong>
+            <div>
+                <h2 class="figma-metric-card__title">Projetos em Análise</h2>
+            </div>
+            <span class="figma-metric-card__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            </span>
+        </article>
+    </section>
+
+    <section class="figma-dashboard__chart-card" aria-labelledby="ods-chart-title">
+        <h2 class="figma-dashboard__chart-title" id="ods-chart-title">Projetos por ODS</h2>
+
+        <div class="figma-ods-chart">
+            {% for item in ods_chart_items %}
+                <div class="figma-ods-chart__row">
+                    <span class="figma-ods-chart__label">{{ item.label }}</span>
+                    <span class="figma-ods-chart__track" title="{{ item.value }} projeto{{ item.value|pluralize }}">
+                        <span class="figma-ods-chart__bar {% if item.highlight %}figma-ods-chart__bar--highlight{% endif %}" style="width: {{ item.percent }}%;"></span>
+                    </span>
+                </div>
+            {% empty %}
+                <p class="figma-metric-card__subtitle">Nenhum projeto com ODS cadastrado.</p>
+            {% endfor %}
+
+            <div class="figma-ods-chart__axis" aria-hidden="true">
+                <span></span>
+                <div class="figma-ods-chart__axis-line">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnTurma = document.getElementById('btn-turma');
+        const dropdownContent = document.getElementById('dropdown-turma-content');
+
+        if (btnTurma && dropdownContent) {
+            btnTurma.addEventListener('click', function(event) {
+                event.stopPropagation();
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function() {
+                dropdownContent.style.display = 'none';
+            });
+        }
+    });
+</script>

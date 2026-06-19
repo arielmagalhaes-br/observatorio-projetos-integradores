@@ -1,77 +1,70 @@
 :root {
-    /* Spacing não apagar */
-    --spacing-sm: 8px;
+    /* Spacing */
+    --spacing-xxs: 4px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
-    /* ------------------ */
+    --spacing-xl: 32px;
+    --spacing-xxl: 40px;
 
-    /* Tipografia */
-    --font-heading: 'Inter', arial;
-    --font-body: 'Roboto', arial;
-    /* ---------- */
+    /* Typography */
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-    --color-text: #000000;
-    --color-text-main: #000000;
-    --color-hover-link: #0869FF;
-    --color-primary: #F3F4F6;
-    --color-button: #0059B2;
+    /* Neutral colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-text: #111827;
+    --color-text-main: #111827;
+    --color-text-btn-arrow-right: #FFFFFF;
+    --color-text-muted: #6B7280;
+    --color-text-inverse: #ffffff;
     --color-background: #F3F4F6;
-    --color-linha: #;
-    --color-quadrado-login: #FFFFFF;
+    --color-surface: #ffffff;
+    --color-surface-alt: #F8FAFC;
+    --color-border: #E5E7EB;
+    --color-border-strong: #D1D5DB;
+    --color-divider: #D1D5DB;
+    --color-input-bg: #ffffff;
+    --color-input-border: #D1D5DB;
+    --color-input-border-focus: #0059B2;
+    --color-input-text: #111827;
+    --color-input-placeholder: #9CA3AF;
+
+    /* Brand colors */
+    --color-primary: #EC6E18;
+    --color-primary-soft: #fff7ed;
+    --color-primary-hover: #d55d0f;
+    --color-secondary: #002B49;
+    --color-secondary-hover: #001f35;
+    --color-danger: #EF4444;
+
+    /* Status colors */
+    --color-success: #166534;
+    --color-success-bg: #DCFCE7;
+    --color-warning: #F59E0B;
+    --color-warning-bg: #FEF3C7;
+    --color-warning-border: #FDE68A;
+
+    /* Semantic colors */
+    --color-link: #0869FF;
     --color-placeholder: #80859C;
-    --color-icones: #5B5B5B;
-    --color-warning: #FEF7D9;
-    --color-dentro-warnig: #F59E0B;
-    --color-nome-do-usuario-na-tela-principal: #000000;
-    --color-curso-em-baixo-do-nome-do-usuario-na-tela-principal: #0869FF;
-    --color-do-email-na-tela-de-login: #80859C;
-    --color-do-numero-de-aprovados: #000000;
-    --color-nome-do-aprovado-agurdo-e-etc: #000000;
-    /* 1. Fundo da Interface e Estrutura Geral */
-    --color-canvas-figma: #1E1E1E; /* Fundo escuro do aplicativo Figma, indicado na barra lateral direita */ 
-    --color-background-app: #F5F5F5; /* Fundo cinza claro que envelopa toda a área central da aplicação */
-    --color-card-white: #FFFFFF (/ *Fundo branco dos blocos de Perfil e de Projetos Recentes) */
-    /* 2. Banner de Notificação (Alerta de Ajuste) */
-    --color-banner-bg: #FEF3C7; /* Tom amarelo/âmbar bem claro usado como fundo do banner de atenção */
-    --color-banner-border: #FDE68A; /* Borda fina amarela que delimita o banner */
-    --color-banner-title: #92400E; /* Texto "Você tem 1 projeto para ser ajustado" em marrom/laranja escuro */
-    --color-banner-text: #B45309; /* Texto menor explicativo "O projeto 'Olhos Abertos' precisa..." */
-    --color-banner-button: #0258C6; /* Botão azul "Ver detalhes →" */
-    --color-banner-button-text: #FFFFFF; /* Texto branco "Ver detalhes →" */
-    /* 3. Card de Perfil do Aluno */
-    --color-profile-name: #111827; /* Cinza escuro/quase preto no nome "Luis Filipe M. H. de A. Nogueira" */
-    --color-profile-course: #2563EB; /* Azul brilhante no texto "Análise e Desenvolvimento de Sistemas" */
-    --color-profile-email: #2563EB; /* O mesmo azul para o e-mail corporativo abaixo do curso */
-    --color-profile-divider: #E5E7EB; /* Linha cinza bem fina usada para separar o e-mail dos números de estatísticas */
-    --color-profile-number: #111827; /* Destaque numérico para "4 PROJETOS", "3 APROVADOS" e "1 PENDENTES" */
-    --color-profile-label-green: #166534; /* Texto "APROVADOS" na cor verde para identificação */
-    --color-profile-label-orange: #9A3412; /* Texto "PENDENTES" na cor laranja para identificação */
-    --color-profile-btn-bg: #FFFFFF; /* Fundo do botão "Editar Perfil" */
-    --color-profile-btn-border: #D1D5DB; /* Borda cinza do botão "Editar Perfil" */
-    --color-profile-btn-text: #374151; /* Texto e ícone do botão "Editar Perfil" */
-    /* 4. Card de Projetos Recentes */
-    --color-projects-title: #111827; /* Título "Projetos Recentes" em cinza escuro/quase preto */
-    --color-project-row-border: #E5E7EB; /* Linha de contorno cinza que envolve cada um dos 4 projetos da lista */
-    --color-project-name: #111827; /* Nome de cada projeto: "Conect PI", "Olhos Abertos", "Deb, a Dev Desenrolada", "Troit de Rogue" em cinza escuro/quase preto */
-    --color-project-info: #6B7280; /* Texto cinza secundário: "Semestre: 2026.1 - ADS", etc. em cinza médio */
-    /* Tags de Status dos Projetos: */
-    /* Tag APROVADO (Projetos 1, 3 e 4): */
-    --color-tag-approved-bg: #DCFCE7; /* Fundo verde claro da pílula "APROVADO" */
-    --color-tag-approved-text: #166534; /* Texto interno "APROVADO" em verde escuro */
-    /* Tag AJUSTES (Projeto 2): */
-    --color-tag-adjust-bg: #FFEDD5; /* Fundo laranja claro da pílula "AJUSTES" */
-    --color-tag-adjust-text: #9A3412; /* Texto interno "AJUSTES" em laranja escuro */
-    /* 5. Paginação e Rodapé (Abaixo de Projetos Recentes) */
-    --color-pagination-text: #9CA3AF; /* Texto "Mostrando 1-4 de 4 projetos" em cinza claro */
-    --color-pagination-arrow: #D1D5DB; /* Setas cinzas de navegação desabilitadas */
-    --color-pagination-bg-active: #2563EB; /* Quadrado azul do botão da página "1" ativa */
-    --color-pagination-text-active: #FFFFFF; /* Número "1" em branco */
-    --color-pagination-bg-inactive: #FFFFFF; /* Quadrado branco da página "2" inativa */
-    --color-pagination-text-inactive: #374151; /* Número "2" em cinza escuro */
-    /* 6. Barra de Navegação Lateral (Sidebar Esquerda) */
-    --color-sidebar-bg: #FFFFFF; /* Fundo branco da barra lateral estreita */
-    --color-sidebar-border: #E5E7EB; /* Linha vertical cinza que separa a sidebar do conteúdo */
-    --color-sidebar-icon-active: #2563EB; /* Ícone de "Home" que está selecionado em azul */
-    --color-sidebar-icon-inactive: #9CA3AF; /* Demais ícones de navegação em cinza claro */
+    --color-icon: #5B5B5B;
+
+    /* Sidebar */
+    --color-sidebar-bg: var(--color-secondary);
+    --color-sidebar-border: rgba(255, 255, 255, 0.1);
+    --color-sidebar-text: rgba(255, 255, 255, 0.7);
+    --color-sidebar-text-active: #ffffff;
+    --color-sidebar-bg-active: var(--color-primary);
+    --color-sidebar-bg-hover: rgba(255, 255, 255, 0.08);
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 80px;
+
+    /* Card status */
+    --color-tag-approved-bg: #DCFCE7;
+    --color-tag-approved-text: #166534;
+    --color-tag-adjust-bg: #FFEDD5;
+    --color-tag-adjust-text: #9A3412;
 }
-    

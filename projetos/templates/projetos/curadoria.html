@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Curadoria | Conecta PI{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/curadoria.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="curadoria-page">
+    <header class="curadoria-header">
+        <h1>Curadoria</h1>
+        <p>Analise os detalhes dos projetos e submeta feedback a equipe ou aprove para a adm.</p>
+    </header>
+
+    <section class="curadoria-card">
+        <form method="GET" action="{% url 'curadoria' %}" class="curadoria-filtros">
+            <div class="curadoria-search">
+                <span class="curadoria-search__icon">&#128269;</span>
+                <input
+                    type="text"
+                    name="q"
+                    class="curadoria-live-search"
+                    value="{{ termo_pesquisa|default:'' }}"
+                    placeholder="Buscar projeto por titulo..."
+                >
+            </div>
+
+            <select name="curso" class="curadoria-filter">
+                <option value="">Curso</option>
+                <option value="ADS" {% if filtro_curso == 'ADS' %}selected{% endif %}>ADS</option>
+                <option value="Sistemas" {% if filtro_curso == 'Sistemas' %}selected{% endif %}>Sistemas</option>
+                <option value="Design" {% if filtro_curso == 'Design' %}selected{% endif %}>Design</option>
+            </select>
+
+            <select name="semestre" class="curadoria-filter">
+                <option value="">Semestre</option>
+                <option value="2026.1" {% if filtro_semestre == '2026.1' %}selected{% endif %}>2026.1</option>
+                <option value="2025.2" {% if filtro_semestre == '2025.2' %}selected{% endif %}>2025.2</option>
+                <option value="2025.1" {% if filtro_semestre == '2025.1' %}selected{% endif %}>2025.1</option>
+            </select>
+
+            <span class="curadoria-count" id="curadoria-count">
+                Exibindo {{ projetos|length }} projeto{{ projetos|length|pluralize }}
+            </span>
+        </form>
+
+        <div class="curadoria-table-wrapper">
+            <table class="curadoria-table">
+                <thead>
+                    <tr>
+                        <th>Nome do Projeto</th>
+                        <th>Autores</th>
+                        <th>Curso</th>
+                        <th>Data de Submissão</th>
+                        <th>Analisar</th>
+                    </tr>
+                </thead>
+
+                <tbody id="curadoria-table-body">
+                    {% include 'projetos/partials/curadoria_tabela.html' %}
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="curadoria-footer">
+            <span id="curadoria-footer-count">
+                Mostrando {{ projetos|length }} resultado{{ projetos|length|pluralize }}
+            </span>
+
+            <div class="curadoria-pagination">
+                <button type="button">&lsaquo;</button>
+                <button type="button" class="active">1</button>
+                <button type="button">2</button>
+                <button type="button">&rsaquo;</button>
+            </div>
+        </footer>
+    </section>
+</div>
+
+<script src="{% static 'js/curadoria_live_search.js' %}"></script>
+{% endblock %}
