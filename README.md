@@ -1,77 +1,71 @@
-# Conecta PI
+# CooperAcao
 
-**Academic projects should not be forgotten after the semester.**
+**Voluntary Blood Donation Network**
 
-Conecta PI is a web platform that organizes, showcases, and connects Capstone Projects from Senac Pernambuco with real demands from companies and NGOs.
+A web platform that connects voluntary blood donors with local blood banks and hospitals in real time.
 
-## Presentation Pitch
+Developed as a Capstone Project for the **Systems Analysis and Development Program** at **Senac College**.
 
-### 1. The Problem
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Senac](https://img.shields.io/badge/Institution-Senac%20College-blue)](https://www.senac.br/)
+[![LGPD](https://img.shields.io/badge/Compliance-LGPD%20Ready-blueviolet)](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
 
-- Many academic projects end up forgotten in archives.
-- Small businesses and NGOs struggle to find ready-to-use solutions.
-- Student talent and innovation often go unnoticed.
+## Project Overview
 
-### 2. The Solution
+CooperAcao bridges the gap between voluntary blood donors and blood banks.
 
-- A digital observatory for Capstone Projects.
-- A showcase for academic innovation.
-- A bridge between students, teachers, companies, and NGOs.
+Blood centers can post urgent blood type shortages, while donors receive smart notifications when their specific blood type is needed nearby.
 
-### 3. Who Uses It
+## Key Features
 
-| User | Main Goal |
+- **Urgent Demand Feed:** Real-time dashboard showing blood supply levels.
+- **Smart Match Scheduling:** Donation appointments based on proximity and hospital demand.
+- **Privacy-First Profiles:** Users control their medical eligibility data and shared history.
+
+## LGPD & Data Privacy
+
+The platform handles sensitive personal data related to health and medical history.
+
+### Implemented Privacy Standards
+
+- **Explicit Consent:** Blood type and availability data are used only with donor consent.
+- **Data Minimization:** Sensitive screening answers are not permanently stored unless required.
+- **User Rights Panel:** Users can access, correct, or delete their registered data.
+- **Consent Revocation:** Users can revoke consent and request account deletion.
+- **Security:** Passwords and sensitive matching fields are hashed with bcrypt.
+
+## Tech Stack
+
+| Layer | Technologies |
 | --- | --- |
-| Students | Register, manage, and publish their projects. |
-| Teachers | Review, approve, and curate projects. |
-| Partner Organizations | Find solutions and submit real demands. |
-| Administrators | Manage users, metrics, and platform continuity. |
+| Frontend | React.js, Tailwind CSS, TypeScript |
+| Backend | Node.js, Fastify, Prisma ORM |
+| Database | PostgreSQL |
+| Testing | Vitest |
 
-### 4. Key Features
+## Core API Endpoints
 
-- Project registration with documentation, images, links, and technologies.
-- Public showcase with search and filters.
-- Teacher curation and approval workflow.
-- Partner demand panel for companies and NGOs.
-- Dashboards with project metrics and SDG indicators.
-- Matchmaking between real demands and academic projects.
+| Method | Endpoint | Description | LGPD Scope |
+| --- | --- | --- | --- |
+| POST | `/api/auth/register` | Registers a new user account | Consent collection |
+| POST | `/api/donors/schedule` | Records a donation appointment | Temporary sensitive data |
+| GET | `/api/privacy/export` | Downloads user data as JSON | Right to access |
+| DELETE | `/api/privacy/purge` | Deletes account and records | Right to erasure |
 
-### 5. Market Need
+## Future Improvements
 
-- 28.7% rated the platform as highly important.
-- 71.3% showed interest in using it during the semester.
-- The demand exists, but the connection is still inefficient.
+- **Deep Sleep Cycle:** Optimize ESP32 power consumption with solar and battery support.
+- **Machine Learning:** Predict depletion rates using regression models.
+- **Enclosure:** Design a 3D printed IP65 waterproof housing.
 
-### 6. Benchmarking
+## Authors & Project Team
 
-| Platform | Limitation |
+| Name | Role |
 | --- | --- |
-| GitHub | No academic curation or project showcase. |
-| Devpost | No connection with classes or local demands. |
-| DSpace | Focused on repositories, not active matchmaking. |
+| Felipe Calado de Sousa | Backend & Privacy Architecture Specialist |
+| Pedro Reynaldo Maia Vasconcelos | Frontend Developer |
+| Otto Notaro | UI/UX & Product Owner |
 
-### 7. Differentiators
+**Academic Advisor / Professor:** Prof. ____________
 
-- Specific filters for each user experience.
-- Structured demand management for companies and NGOs.
-- Academic and industry approval seal.
-- Focus on Senac Pernambuco's project ecosystem.
-
-### 8. Technologies Used
-
-- Python
-- Django
-- SQLite
-- HTML5
-- CSS3
-- JavaScript
-- Pillow
-
-### 9. Demo Flow
-
-1. Log in as a student.
-2. Register a new project.
-3. Send it to teacher review.
-4. Approve the project through curation.
-5. View it in the public showcase.
-6. Match it with partner demands.
+**Tech English Course Professor:** Prof. Leonardo Trevas
