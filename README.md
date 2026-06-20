@@ -1,71 +1,82 @@
-# CooperAcao
+# Conecta PI
 
-**Voluntary Blood Donation Network**
+**Academic Project Observatory**
 
-A web platform that connects voluntary blood donors with local blood banks and hospitals in real time.
+A web platform that centralizes, organizes, and showcases Capstone Projects from Senac Pernambuco.
 
-Developed as a Capstone Project for the **Systems Analysis and Development Program** at **Senac College**.
+Conecta PI connects students, teachers, administrators, and partner organizations through academic innovation and real-world demands.
 
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Senac](https://img.shields.io/badge/Institution-Senac%20College-blue)](https://www.senac.br/)
-[![LGPD](https://img.shields.io/badge/Compliance-LGPD%20Ready-blueviolet)](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
+[![Django](https://img.shields.io/badge/Framework-Django-green)](https://www.djangoproject.com/)
+[![Senac](https://img.shields.io/badge/Institution-Senac%20Pernambuco-blue)](https://www.senac.br/)
+[![SDG](https://img.shields.io/badge/Focus-SDG%20Projects-blueviolet)](https://sdgs.un.org/goals)
 
 ## Project Overview
 
-CooperAcao bridges the gap between voluntary blood donors and blood banks.
+Conecta PI was designed to prevent academic projects from being forgotten after the semester.
 
-Blood centers can post urgent blood type shortages, while donors receive smart notifications when their specific blood type is needed nearby.
+The platform works as a digital observatory where students publish projects, teachers curate submissions, and partner organizations discover solutions for real needs.
 
 ## Key Features
 
-- **Urgent Demand Feed:** Real-time dashboard showing blood supply levels.
-- **Smart Match Scheduling:** Donation appointments based on proximity and hospital demand.
-- **Privacy-First Profiles:** Users control their medical eligibility data and shared history.
+- **Project Showcase:** Public gallery with approved academic projects.
+- **Student Dashboard:** Project registration, editing, images, documents, and useful links.
+- **Teacher Curation:** Review workflow with approval, feedback, and adjustment requests.
+- **Partner Demands:** Companies and NGOs can register real operational needs.
+- **Matchmaking Panel:** Connects partner demands with academic projects.
+- **Metrics Dashboard:** Tracks projects, pending reviews, demands, and SDG indicators.
 
 ## LGPD & Data Privacy
 
-The platform handles sensitive personal data related to health and medical history.
+The platform handles user accounts, profile data, project files, images, and partner organization information.
 
 ### Implemented Privacy Standards
 
-- **Explicit Consent:** Blood type and availability data are used only with donor consent.
-- **Data Minimization:** Sensitive screening answers are not permanently stored unless required.
-- **User Rights Panel:** Users can access, correct, or delete their registered data.
-- **Consent Revocation:** Users can revoke consent and request account deletion.
-- **Security:** Passwords and sensitive matching fields are hashed with bcrypt.
+- **Role-Based Access:** Different permissions for students, teachers, administrators, and partners.
+- **Authentication:** Protected pages require login before accessing private information.
+- **Data Minimization:** Project and profile forms collect only relevant academic information.
+- **Curated Publication:** Projects appear in the public showcase only after approval.
+- **Controlled Editing:** Students can edit only their own drafts or projects returned for adjustments.
 
 ## Tech Stack
 
 | Layer | Technologies |
 | --- | --- |
-| Frontend | React.js, Tailwind CSS, TypeScript |
-| Backend | Node.js, Fastify, Prisma ORM |
-| Database | PostgreSQL |
-| Testing | Vitest |
+| Frontend | HTML5, CSS3, JavaScript |
+| Backend | Python, Django |
+| Database | SQLite |
+| Media Handling | Pillow |
+| Architecture | Django Templates, Models, Views, Migrations |
 
-## Core API Endpoints
+## Core Platform Routes
 
-| Method | Endpoint | Description | LGPD Scope |
-| --- | --- | --- | --- |
-| POST | `/api/auth/register` | Registers a new user account | Consent collection |
-| POST | `/api/donors/schedule` | Records a donation appointment | Temporary sensitive data |
-| GET | `/api/privacy/export` | Downloads user data as JSON | Right to access |
-| DELETE | `/api/privacy/purge` | Deletes account and records | Right to erasure |
+| Route | Description | Main User |
+| --- | --- | --- |
+| `/` | Gateway for choosing the user profile | Public |
+| `/login/` | User authentication | All users |
+| `/home/` | Student dashboard | Students |
+| `/meus-projetos/` | Student project management | Students |
+| `/novo-projeto/` | New project submission | Students |
+| `/curadoria/` | Project review queue | Teachers |
+| `/parcerias/` | Partner demands panel | Teachers |
+| `/matchmaking/` | Demand and project matching | Teachers |
+| `/vitrine/` | Public showcase of approved projects | Public |
 
 ## Future Improvements
 
-- **Deep Sleep Cycle:** Optimize ESP32 power consumption with solar and battery support.
-- **Machine Learning:** Predict depletion rates using regression models.
-- **Enclosure:** Design a 3D printed IP65 waterproof housing.
+- **Smart Recommendations:** Suggest projects for partner demands automatically.
+- **Notification System:** Alert students when teachers request adjustments.
+- **Advanced Analytics:** Export dashboards with project, course, semester, and SDG data.
+- **Partner Portal:** Expand demand registration and tracking for companies and NGOs.
 
 ## Authors & Project Team
 
-| Name | Role |
+| Role | Responsibility |
 | --- | --- |
-| Felipe Calado de Sousa | Backend & Privacy Architecture Specialist |
-| Pedro Reynaldo Maia Vasconcelos | Frontend Developer |
-| Otto Notaro | UI/UX & Product Owner |
+| Students | Project development and documentation |
+| Teachers | Academic curation and feedback |
+| Partner Organizations | Real demands and validation |
+| Administrators | Platform management and continuity |
 
-**Academic Advisor / Professor:** Prof. ____________
+**Academic Institution:** Senac Pernambuco
 
-**Tech English Course Professor:** Prof. Leonardo Trevas
+**Project Type:** Capstone Project / Projeto Integrador
